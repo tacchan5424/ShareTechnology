@@ -22,6 +22,8 @@ async function start() {
   // Give nuxt middleware to express
   app.use(nuxt.render);
 
+  // Connect DB
+
   // Listen the server
   app.listen(port, host);
   consola.ready({
