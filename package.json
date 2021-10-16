@@ -16,13 +16,15 @@
   "dependencies": {
     "express": "^4.17.1",
     "mongodb": "^4.1.2",
+    "buefy": "^0.9.10",
+    "bulma": "^0.9.3",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
-    "eslint": "^4.19.1",
+    "eslint": "^7.32.0",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.1.1",
-    "eslint-plugin-vue": "^4.0.0"
+    "eslint-plugin-vue": "^7.17.0"
   }
 }
