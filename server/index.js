@@ -22,7 +22,21 @@ async function start() {
   // Give nuxt middleware to express
   app.use(nuxt.render);
 
-  // Connect DB
+  // DB接続検証
+  let DbConnection = null;
+  await require("./mongodb.js")
+    .then(res => {
+      DbConnection = res;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  // DbConnection.collection("technology").insertOne({
+  //   name: "mr.a",
+  //   age: 11,
+  //   gender: "m",
+  //   hobbies: ["programming"]
+  // });
 
   // Listen the server
   app.listen(port, host);

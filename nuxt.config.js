@@ -33,5 +33,6 @@ module.exports = {
       }
     }
   },
-  plugins: ["~/plugins/buefy.js"]
+  plugins: ["~/plugins/buefy.js"],
+  telemetry: false
 };

@@ -1,0 +1,14 @@
+{
+  "body": [
+    {
+      "technorogyName": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "appName": ["qiita", "bulma"],
+      "appLink": ["https://qiita.com/", "https://bulma.io/"]
+    },
+    {
+      "technorogyName": "bb",
+      "appName": ["qiita"],
+      "appLink": ["https://qiita.com/"]
+    }
+  ]
+}
