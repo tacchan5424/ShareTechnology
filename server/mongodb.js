@@ -1,41 +1,30 @@
 const { MongoClient } = require("mongodb");
+const user = "user";
+const password = "userPassword";
+const dbName = "technology";
+const uri = `mongodb+srv://${user}:${password}@cluster0.u0oyz.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
-const DbConnection = function() {
-  const user = "user";
-  const password = "userPassword";
-  const dbName = "technology";
-  const uri = `mongodb+srv://${user}:${password}@cluster0.u0oyz.mongodb.net/${dbName}?retryWrites=true&w=majority`;
-  const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
-  let db = null;
+class Mongodb {
+  constructor() {
+    this.db = null;
+  }
 
-  async function dbConnect() {
+  async get() {
     await client
       .connect()
       .then(() => {
         console.log("接続成功");
-        db = client.db(dbName);
+        this.db = client.db(dbName);
       })
       .catch(error => {
         throw error;
       });
+    return this.db;
   }
+}
 
-  async function getConnection() {
-    if (db != null) {
-      console.log(`db connection is already alive`);
-      return db;
-    } else {
-      console.log(`getting new db connection`);
-      // 待たせる
-      await dbConnect();
-      return db;
-    }
-  }
-
-  return getConnection();
-};
-
-module.exports = DbConnection();
+module.exports = new Mongodb();

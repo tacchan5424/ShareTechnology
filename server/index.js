@@ -24,13 +24,8 @@ async function start() {
 
   // DB接続検証
   let DbConnection = null;
-  await require("./mongodb.js")
-    .then(res => {
-      DbConnection = res;
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  DbConnection = await require("./Mongodb.js").get();
+  // console.log(DbConnection);
   // DbConnection.collection("technology").insertOne({
   //   name: "mr.a",
   //   age: 11,
