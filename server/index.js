@@ -24,8 +24,8 @@ async function start() {
   app.use(nuxt.render);
 
   // DB接続検証
-  // let DbConnection = null;
-  // DbConnection = await require("./Mongodb.js").get();
+  let DbConnection = null;
+  DbConnection = await require("./api/models/mongodb").get();
   // console.log(DbConnection);
   // DbConnection.collection("technology").insertOne({
   //   name: "mr.a",
@@ -38,7 +38,7 @@ async function start() {
   app.use(express.urlencoded({ extended: true }));
 
   const routes = require("./api/routes/route"); // Routeのインポート
-  await routes(app); //appにRouteを設定する
+  routes(app, DbConnection); //appにRouteを設定する
 
   // Listen the server
   app.listen(port, host);
