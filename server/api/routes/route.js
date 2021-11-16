@@ -1,5 +1,5 @@
-module.exports = function(app, db) {
+module.exports = function(app) {
   const api = require("../controllers/controller");
 
-  app.route("/a").get(api.createData(db, app.request, app.response));
+  app.route("/api/findOne").get(api.createData);
 };
