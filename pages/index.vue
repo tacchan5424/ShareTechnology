@@ -14,6 +14,7 @@
 import BaseInput from "~/components/BaseInput.vue";
 import Box from "~/components/Box.vue";
 import BaseButton from "~/components/BaseButton.vue";
+import axios from "axios";
 
 export default {
   components: {
@@ -31,7 +32,14 @@ export default {
   },
   methods: {
     test() {
-      console.log("呼ばれた");
+      axios
+        .get("http://localhost:3000/api/findOne")
+        .then(response => {
+          console.log("response body:", response.data);
+        })
+        .catch(err => {
+          console.log("err:", err);
+        });
     }
   }
 };

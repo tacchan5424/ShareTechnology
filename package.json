@@ -14,10 +14,11 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "mongodb": "^4.1.2",
+    "axios": "^0.24.0",
     "buefy": "^0.9.10",
     "bulma": "^0.9.3",
+    "express": "^4.17.1",
+    "mongodb": "^4.1.2",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {

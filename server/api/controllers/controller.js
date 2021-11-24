@@ -7,7 +7,6 @@ const dbConnection = require("../models/mongodb");
 // 新規作成
 exports.createData = function(req, res) {
   const db = dbConnection.get();
-  console.log(db);
   // db.collection("technology").insertOne({
   //   name: "apiテスト",
   //   age: 11,
