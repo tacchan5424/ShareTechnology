@@ -14,15 +14,18 @@ class Mongodb {
   }
 
   async get() {
-    await client
-      .connect()
-      .then(() => {
-        console.log("接続成功");
-        this.db = client.db(dbName);
-      })
-      .catch(error => {
-        throw error;
-      });
+    // 一度もインスタンス生成されていない場合のみDB接続情報取得
+    if (this.db === null) {
+      await client
+        .connect()
+        .then(() => {
+          console.log("接続成功");
+          this.db = client.db(dbName);
+        })
+        .catch(error => {
+          throw error;
+        });
+    }
     return this.db;
   }
 }

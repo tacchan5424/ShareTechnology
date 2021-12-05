@@ -31,7 +31,14 @@ export default {
   },
   methods: {
     test() {
-      console.log("呼ばれた");
+      this.$Axios
+        .get("api/findOne")
+        .then(response => {
+          console.log("response body:", response.data);
+        })
+        .catch(err => {
+          console.log("err:", err);
+        });
     }
   }
 };
