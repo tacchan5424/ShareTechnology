@@ -10,17 +10,16 @@ function calledFromApi(req) {
 
 // 新規作成
 // TODO:画面遷移でコールされた場合は404を返してエラーページを出力する
-exports.createData = function(req, res) {
-  const db = dbConnection.get();
-  if (!calledFromApi(req)) {
-    res.status(404);
-  }
-  // db.collection("technology").insertOne({
-  //   name: "apiテスト",
-  //   age: 11,
-  //   gender: "m",
-  //   hobbies: ["programming"]
-  // });
+exports.createContact = async function(req, res) {
+  const db = await dbConnection.get();
+  // if (!calledFromApi(req)) {
+  //   res.status(404);
+  // }
+  db.collection("contact").insertOne({
+    id: 0,
+    tag: "バグ報告",
+    detail: "障害発生"
+  });
   res.end("呼べたよ");
 };
 

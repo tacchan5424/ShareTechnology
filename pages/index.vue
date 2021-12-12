@@ -32,7 +32,7 @@ export default {
   methods: {
     test() {
       this.$Axios
-        .get("api/findOne")
+        .get("api/createContact")
         .then(response => {
           console.log("response body:", response.data);
         })
