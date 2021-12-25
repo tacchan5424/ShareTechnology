@@ -19,24 +19,15 @@ async function start() {
     await nuxt.ready();
   }
 
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+
+  // apiのルーティング設定
+  const routes = require("./api/routes/route");
+  routes(app);
+
   // Give nuxt middleware to express
   app.use(nuxt.render);
-
-  // DB接続検証
-  let DbConnection = null;
-  await require("./mongodb.js")
-    .then(res => {
-      DbConnection = res;
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  // DbConnection.collection("technology").insertOne({
-  //   name: "mr.a",
-  //   age: 11,
-  //   gender: "m",
-  //   hobbies: ["programming"]
-  // });
 
   // Listen the server
   app.listen(port, host);

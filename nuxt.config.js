@@ -33,6 +33,6 @@ module.exports = {
       }
     }
   },
-  plugins: ["~/plugins/buefy.js"],
+  plugins: ["~/plugins/buefy.js", "~/plugins/axios.js"],
   telemetry: false
 };
