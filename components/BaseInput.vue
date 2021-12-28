@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section v-if="!isEdit">
+    <section v-if="isEdit">
       <b-input
         :value="value"
         :type="type"
@@ -9,7 +9,7 @@
         :placeholder="placeholder"
       ></b-input>
     </section>
-    <span v-if="isEdit">
+    <span v-if="!isEdit">
       {{ value }}
     </span>
   </div>

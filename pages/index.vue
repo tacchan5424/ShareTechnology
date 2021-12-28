@@ -1,7 +1,6 @@
 <template>
   <div>
-    <base-input value="test" :isEdit="false"></base-input>
-    <base-button :func="this.test"></base-button>
+    <the-header></the-header>
     <box
       v-for="content in contents.body"
       :key="content.technorogyName"
@@ -11,16 +10,14 @@
 </template>
 
 <script>
-import BaseInput from "~/components/BaseInput.vue";
 import Box from "~/components/Box.vue";
-import BaseButton from "~/components/BaseButton.vue";
+import TheHeader from "~/components/TheHeader.vue";
 
 export default {
   components: {
-    BaseInput,
     Box,
-    BaseButton
-  },
+    TheHeader
+    },
   data() {
     return {};
   },
