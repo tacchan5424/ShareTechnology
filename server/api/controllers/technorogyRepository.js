@@ -9,8 +9,24 @@ function calledFromApi(req) {
 exports.create = async function(req, res) {
   const db = await dbConnection.get();
   db.collection("technorogy").insertOne({
-    id: 0,
-    name: "vue"
+    name: req.name,
+    createdAt: req.createdAt,
+    updatedAt: req.updatedAt,
+    usedCount: req.usedCount
   });
   res.end("呼べたよ");
+};
+
+// 技術情報更新
+exports.save = async function(req, res) {
+  db.collection("technorogy").updateOne(
+    { _id: req._id },
+    { $set: [{ detail: req.detail }, { fixed: 1 }] }
+  );
+};
+
+// 技術情報検索(全件検索)
+exports.findAll = async function(req, res) {
+  const db = await dbConnection.get();
+  db.collection("technorogy").find({});
 };

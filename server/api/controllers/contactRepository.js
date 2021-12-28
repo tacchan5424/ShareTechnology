@@ -21,9 +21,11 @@ exports.create = async function(req, res) {
 // 問い合わせ更新
 exports.save = async function(req, res) {
   const db = await dbConnection.get();
-  db.collection("contact").update(
+  db.collection("contact").updateOne(
     { _id: req._id },
-    { $set: [{ detail: req.detail }, { fixed: 1 }] }
+    {
+      $set: [{ detail: req.detail }, { fixed: 1 }]
+    }
   );
 };
 

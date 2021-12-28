@@ -16,7 +16,7 @@ exports.create = async function(req, res) {
 // 問い合わせ更新
 exports.save = async function(req, res) {
   const db = await dbConnection.get();
-  db.collection("information").update(
+  db.collection("information").updateOne(
     { _id: req._id },
     { $set: { detail: req.detail } }
   );
