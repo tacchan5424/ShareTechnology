@@ -15,6 +15,7 @@ class Mongodb {
 
   async get() {
     // 一度もインスタンス生成されていない場合のみDB接続情報取得
+    // リポジトリを分けたことによる動きは要確認
     if (this.db === null) {
       await client
         .connect()
