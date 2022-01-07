@@ -13,7 +13,7 @@
       <base-button :func="this.test" text="検索"></base-button>
     </div>
     <div class="control column">
-      <a href="https://google.com">お問い合わせ先</a>
+      <a href="contact">お問い合わせ先</a>
     </div>
     <div class="control column">
       <a href="https://yahoo.co.jp">利用規約</a>
