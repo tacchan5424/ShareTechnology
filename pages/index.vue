@@ -17,25 +17,53 @@ export default {
   components: {
     Box,
     TheHeader
-    },
-  data() {
-    return {};
   },
-  asyncData() {
+  data() {
     return {
+      technology: null,
+      technologyDetails: null
+    };
+  },
+  asyncData(context) {
+    let technology = null;
+    let technologyDetails = null;
+    // 技術情報取得
+    context.app.$Axios
+      .get("")
+      .then(response => {
+        technology = response.body;
+        // 技術詳細情報取得
+        context.app.$Axios
+          .get("")
+          .then(response => {
+            technologyDetails = response.body;
+          })
+          .catch(error => {});
+      })
+      .catch(error => {});
+
+    return {
+      technology: technology,
+      technologyDetails: technologyDetails,
       contents: require("~/assets/dummyData/contents.json")
     };
   },
   methods: {
-    test() {
+    searchTechnology(params) {
+      // 技術情報取得
       this.$Axios
-        .get("api/createContact")
+        .get("")
         .then(response => {
-          console.log("response body:", response.data);
+          this.technology = response.body;
+          // 技術詳細情報取得
+          this.$Axios
+            .get("")
+            .then(response => {
+              technologyDetails = response.body;
+            })
+            .catch(error => {});
         })
-        .catch(err => {
-          console.log("err:", err);
-        });
+        .catch(error => {});
     }
   }
 };
