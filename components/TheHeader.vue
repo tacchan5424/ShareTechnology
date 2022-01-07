@@ -24,7 +24,7 @@
           </b-navbar-item>
           <b-navbar-item
             class="control column is-6 has-background-primary"
-            href="https://google.com"
+            href="contact"
           >
             <b-icon icon="email"></b-icon>
             お問い合わせ先
