@@ -10,7 +10,7 @@
       ></base-input>
     </div>
     <div class="control column is-1">
-      <base-button :func="this.test" text="検索"></base-button>
+      <base-button :func="this.searchTechnology" text="検索"></base-button>
     </div>
     <div class="control column ">
       <b-navbar class="has-background-primary">
@@ -50,6 +50,9 @@ export default {
   components: {
     BaseInput,
     BaseButton
+  },
+  methods: {
+    searchTechnology() {}
   }
 };
 </script>
