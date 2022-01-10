@@ -2,7 +2,7 @@
   <div>
     <section v-if="isEdit">
       <b-input
-        :value="value"
+        v-model="localValue"
         :type="type"
         :class="classes"
         :icon="icon"
@@ -10,7 +10,7 @@
       ></b-input>
     </section>
     <span v-if="!isEdit">
-      {{ value }}
+      {{ localValue }}
     </span>
   </div>
 </template>
@@ -24,6 +24,16 @@ export default {
     icon: String,
     placeholder: String,
     isEdit: Boolean
+  },
+  computed: {
+    localValue: {
+      get() {
+        return this.value;
+      },
+      set(setValue) {
+        this.$emit("input", setValue);
+      }
+    }
   }
 };
 </script>
