@@ -10,7 +10,7 @@
       ></b-input>
     </section>
     <span v-if="!isEdit">
-      {{ componentValue }}
+      {{ localValue }}
     </span>
   </div>
 </template>
