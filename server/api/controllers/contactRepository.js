@@ -1,4 +1,5 @@
 const dbConnection = require("../models/mongodb");
+const moment = require("moment");
 
 // TODO:画面遷移でコールされた場合は404を返してエラーページを出力する
 function calledFromApi(req) {
@@ -7,13 +8,17 @@ function calledFromApi(req) {
 
 // 問い合わせ情報作成
 exports.create = async function(req, res) {
+  const currentTime = moment();
   const db = await dbConnection.get();
   // if (!calledFromApi(req)) {
   //   res.status(404);
   // }
   db.collection("contact").insertOne({
-    tag: "バグ報告",
-    detail: "障害発生"
+    createdAt: currentTime.format("YYYY/MM/DD HH:mm:ss"),
+    tag: req.body.params.tag,
+    detail: req.body.params.detail,
+    reply: null,
+    fixed: 0
   });
   res.end("呼べたよ");
 };

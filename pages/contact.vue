@@ -2,14 +2,15 @@
   <div>
     <the-header></the-header>
     <div class="control column">
-      <base-select :options="options"></base-select>
+      <base-select v-model="tag" :options="contactTags"></base-select>
     </div>
     <div class="control column">
-      <base-input value="test" :isEdit="true" type="textarea"></base-input>
+      <base-input v-model="detail" :isEdit="true" type="textarea"></base-input>
     </div>
     <div class="control column">
-      <base-button :func="this.test" text="送信"></base-button>
+      <base-button :func="this.createContact" text="送信"></base-button>
     </div>
+    <b-loading v-model="isLoading"></b-loading>
   </div>
 </template>
 
@@ -29,12 +30,30 @@ export default {
 
   data() {
     return {
-      options: [
-        { text: "ああああああ", name: "1" },
-        { text: "いいいいいい", name: "2" },
-        { text: "うううううう", name: "3" }
-      ]
+      contactTags: require("~/assets/contactTags.json"),
+      tag: null,
+      detail: null,
+      isLoading: false
     };
+  },
+
+  methods: {
+    createContact() {
+      this.isLoading = true;
+      this.$Axios
+        .post("/api/createContact", {
+          params: {
+            tag: this.tag,
+            detail: this.detail
+          }
+        })
+        .then(response => {
+          console.log(response);
+          this.$buefy.dialog.alert("ご報告ありがとうございます。");
+        })
+        .catch(error => {});
+      this.isLoading = false;
+    }
   }
 };
 </script>

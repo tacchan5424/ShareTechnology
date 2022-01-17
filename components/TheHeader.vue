@@ -31,7 +31,7 @@
           </b-navbar-item>
           <b-navbar-item
             class="control column is-6 has-background-primary"
-            href="https://google.com"
+            href="userPolicy"
           >
             <b-icon icon="note"></b-icon>
             利用規約
