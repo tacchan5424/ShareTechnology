@@ -3,7 +3,7 @@
     <div class="control column is-3"></div>
     <div class="control column is-3">
       <base-input
-        value="test"
+        :value="query"
         :isEdit="true"
         type="search"
         icon="magnify"
@@ -27,7 +27,7 @@
             href="contact"
           >
             <b-icon icon="email"></b-icon>
-            お問い合わせ先
+            お問い合わせ
           </b-navbar-item>
           <b-navbar-item
             class="control column is-6 has-background-primary"
@@ -50,6 +50,11 @@ export default {
   components: {
     BaseInput,
     BaseButton
+  },
+  data() {
+    return {
+      query: null
+    };
   },
   methods: {
     searchTechnology() {}

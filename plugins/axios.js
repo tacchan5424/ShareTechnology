@@ -6,7 +6,7 @@ export default ({}, inject) => {
     headers: {
       "Content-Type": "application/json",
       "X-Requested-With": "XMLHttpRequest",
-      "X-Test": "Test"
+      "X-Custom-Auth": "ShareTechnology"
     },
     responseType: "json"
   });

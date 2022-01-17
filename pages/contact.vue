@@ -2,10 +2,14 @@
   <div>
     <the-header></the-header>
     <div class="control column">
-      <base-select v-model="tag" :options="contactTags"></base-select>
+      <base-select v-model="contact.tag" :options="contactTags"></base-select>
     </div>
     <div class="control column">
-      <base-input v-model="detail" :isEdit="true" type="textarea"></base-input>
+      <base-input
+        v-model="contact.detail"
+        :isEdit="true"
+        type="textarea"
+      ></base-input>
     </div>
     <div class="control column">
       <base-button :func="this.createContact" text="送信"></base-button>
@@ -29,10 +33,10 @@ export default {
   },
 
   data() {
+    const Contact = require("~/server/api/models/contact");
     return {
       contactTags: require("~/assets/contactTags.json"),
-      tag: null,
-      detail: null,
+      contact: new Contact(),
       isLoading: false
     };
   },
@@ -41,18 +45,23 @@ export default {
     createContact() {
       this.isLoading = true;
       this.$Axios
-        .post("/api/createContact", {
+        .post("api/createContact", {
           params: {
-            tag: this.tag,
-            detail: this.detail
+            detail: this.contact.detail,
+            tag: this.contact.detail
           }
         })
         .then(response => {
-          console.log(response);
+          this.isLoading = false;
           this.$buefy.dialog.alert("ご報告ありがとうございます。");
         })
-        .catch(error => {});
-      this.isLoading = false;
+        .catch(() => {
+          this.$buefy.dialog.alert({
+            message: "エラーが発生しました。",
+            type: "is-danger"
+          });
+          this.isLoading = false;
+        });
     }
   }
 };
