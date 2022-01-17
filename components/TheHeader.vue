@@ -39,17 +39,20 @@
         </template>
       </b-navbar>
     </div>
+    <base-modal></base-modal>
   </div>
 </template>
 
 <script>
 import BaseInput from "~/components/BaseInput.vue";
 import BaseButton from "~/components/BaseButton.vue";
+import BaseModal from "~/components/BaseModal.vue";
 
 export default {
   components: {
     BaseInput,
-    BaseButton
+    BaseButton,
+    BaseModal
   },
   methods: {
     searchTechnology() {}
