@@ -14,11 +14,12 @@ exports.create = async function(req, res) {
   if (calledByService(req)) {
     const currentTime = moment();
     const db = await dbConnection.get();
+    const contact = JSON.parse(req.body.params.contact);
     db.collection("contact").insertOne({
       createdAt: currentTime.format("YYYY/MM/DD HH:mm:ss"),
       updatedAt: null,
-      tag: req.body.params.tag,
-      detail: req.body.params.detail,
+      tag: contact.tag,
+      detail: contact.detail,
       reply: null,
       fixed: 0
     });

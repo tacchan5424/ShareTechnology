@@ -40,4 +40,16 @@ module.exports = class Contact {
   set fixed(fixed) {
     this.#fixed = fixed;
   }
+
+  toJson() {
+    const json = {
+      createdAt: this.#createdAt,
+      updatedAt: this.#updatedAt,
+      detail: this.#detail,
+      tag: this.#tag,
+      reply: this.#reply,
+      fixed: this.#fixed
+    };
+    return JSON.stringify(json);
+  }
 };
