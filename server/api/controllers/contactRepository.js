@@ -1,26 +1,33 @@
 const dbConnection = require("../models/mongodb");
 const moment = require("moment");
+const customHeader = "ShareTechnology";
+const Contact = require("../models/contact");
 
 // TODO:画面遷移でコールされた場合は404を返してエラーページを出力する
-function calledFromApi(req) {
-  return true;
+function calledByService(req) {
+  if (req.header("X-Custom-Auth"))
+    return req.header("X-Custom-Auth") === customHeader;
 }
 
 // 問い合わせ情報作成
 exports.create = async function(req, res) {
-  const currentTime = moment();
-  const db = await dbConnection.get();
-  // if (!calledFromApi(req)) {
-  //   res.status(404);
-  // }
-  db.collection("contact").insertOne({
-    createdAt: currentTime.format("YYYY/MM/DD HH:mm:ss"),
-    tag: req.body.params.tag,
-    detail: req.body.params.detail,
-    reply: null,
-    fixed: 0
-  });
-  res.end("呼べたよ");
+  if (calledByService(req)) {
+    const currentTime = moment();
+    const db = await dbConnection.get();
+    const contact = JSON.parse(req.body.params.contact);
+    db.collection("contact").insertOne({
+      createdAt: currentTime.format("YYYY/MM/DD HH:mm:ss"),
+      updatedAt: null,
+      tag: contact.tag,
+      detail: contact.detail,
+      reply: null,
+      fixed: 0
+    });
+    res.end();
+  } else {
+    res.status(404);
+    res.end();
+  }
 };
 
 // 問い合わせ更新
