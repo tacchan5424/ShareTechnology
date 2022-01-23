@@ -49,7 +49,15 @@ module.exports = class TechnologyDetail extends Base {
   }
 
   toJson() {
-    const json = {};
+    const json = {
+      createdAt: this._createdAt,
+      updatedAt: this._updatedAt,
+      detail: this.#detail,
+      tags: this.#tags,
+      linkTitles: this.#linkTitles,
+      links: this.#links,
+      technologyId: this.#technologId
+    };
     return;
   }
 };
