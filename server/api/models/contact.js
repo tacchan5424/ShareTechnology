@@ -1,14 +1,13 @@
-module.exports = class Contact {
-  #createdAt;
-  #updatedAt;
+const Base = require("./base");
+
+module.exports = class Contact extends Base {
   #detail;
   #tag;
   #reply;
   #fixed;
 
   constructor() {
-    this.#createdAt = null;
-    this.#updatedAt = null;
+    super();
     this.#detail = null;
     this.#tag = null;
     this.#reply = null;
@@ -43,8 +42,8 @@ module.exports = class Contact {
 
   toJson() {
     const json = {
-      createdAt: this.#createdAt,
-      updatedAt: this.#updatedAt,
+      createdAt: this._createdAt,
+      updatedAt: this._updatedAt,
       detail: this.#detail,
       tag: this.#tag,
       reply: this.#reply,
