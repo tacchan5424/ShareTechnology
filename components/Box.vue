@@ -3,17 +3,17 @@
     <div class="column is-mobile is-half">
       <div class="box">
         <p class="title is-5">
-          {{ this.content.technorogyName }}
+          {{ this.content.name }}
         </p>
         <div class="">
           <span class="">初心者向け</span>
           <a
-            v-for="(appName, index) in content.appName"
+            v-for="(linkTitle, index) in content.linkTitles"
             :key="index"
-            :href="content.appLink[index]"
+            :href="content.links[index]"
             target="_blank"
           >
-            {{ appName }}
+            {{ linkTitle }}
           </a>
         </div>
       </div>

@@ -1,7 +1,6 @@
 const dbConnection = require("../models/mongodb");
 const moment = require("moment");
 const customHeader = "ShareTechnology";
-const Contact = require("../models/contact");
 
 // TODO:画面遷移でコールされた場合は404を返してエラーページを出力する
 function calledByService(req) {
@@ -14,7 +13,7 @@ exports.create = async function(req, res) {
   if (calledByService(req)) {
     const currentTime = moment();
     const db = await dbConnection.get();
-    const contact = JSON.parse(req.body.params.contact);
+    const contact = req.body.params.contact;
     db.collection("contact").insertOne({
       createdAt: currentTime.format("YYYY/MM/DD HH:mm:ss"),
       updatedAt: null,
