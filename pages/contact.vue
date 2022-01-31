@@ -57,7 +57,7 @@ export default {
       this.$Axios
         .post("api/createContact", {
           params: {
-            contact: this.contact.toJson()
+            contact: this.contact
           }
         })
         .then(response => {

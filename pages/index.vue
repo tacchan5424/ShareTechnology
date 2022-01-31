@@ -2,9 +2,9 @@
   <div class="has-background-white-ter">
     <the-header></the-header>
     <box
-      v-for="content in contents.body"
-      :key="content.technorogyName"
-      :content="content"
+      v-for="technology in this.technologyList"
+      :key="technology._id"
+      :content="technology"
     ></box>
   </div>
 </template>
@@ -19,52 +19,42 @@ export default {
     TheHeader
   },
   data() {
-    return {
-      technology: null,
-      technologyDetails: null
-    };
+    return { technologyList: [] };
   },
-  asyncData(context) {
-    let technology = null;
-    let technologyDetails = null;
+  async asyncData(app) {
+    const technologyList = [];
     // 技術情報取得
-    context.app.$Axios
-      .get("")
+    // 画面更新時にコールされていない
+    await app.$Axios
+      .get("api/findAllTechnology")
       .then(response => {
-        technology = response.body;
-        // 技術詳細情報取得
-        context.app.$Axios
-          .get("")
-          .then(response => {
-            technologyDetails = response.body;
-          })
-          .catch(error => {});
+        response.data.forEach(element => {
+          technologyList.push(element);
+        });
       })
       .catch(error => {});
 
     return {
-      technology: technology,
-      technologyDetails: technologyDetails,
-      contents: require("~/assets/dummyData/contents.json")
+      technologyList: technologyList
     };
   },
   methods: {
-    searchTechnology(params) {
-      // 技術情報取得
-      this.$Axios
-        .get("")
-        .then(response => {
-          this.technology = response.body;
-          // 技術詳細情報取得
-          this.$Axios
-            .get("")
-            .then(response => {
-              technologyDetails = response.body;
-            })
-            .catch(error => {});
-        })
-        .catch(error => {});
-    }
+    // searchTechnology(params) {
+    //   // 技術情報取得
+    //   this.$Axios
+    //     .get("")
+    //     .then(response => {
+    //       this.technology = response.body;
+    //       // 技術詳細情報取得
+    //       this.$Axios
+    //         .get("")
+    //         .then(response => {
+    //           technologyDetails = response.body;
+    //         })
+    //         .catch(error => {});
+    //     })
+    //     .catch(error => {});
+    // }
   }
 };
 </script>
