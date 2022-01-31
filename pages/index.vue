@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="has-background-white-ter">
     <the-header></the-header>
     <box
       v-for="content in contents.body"

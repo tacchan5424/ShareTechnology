@@ -3,7 +3,7 @@
     <div class="control column is-3"></div>
     <div class="control column is-3">
       <base-input
-        :value="query"
+        v-model="query"
         :isEdit="true"
         type="search"
         icon="magnify"
@@ -57,7 +57,15 @@ export default {
     };
   },
   methods: {
-    searchTechnology() {}
+    searchTechnology() {
+      if (this.query) {
+        // 全角スペース→半角スペース、半角スペースで区切る
+        const queryList = this.query.replaceAll("　", " ").split(" ");
+        console.log(queryList);
+      } else {
+        this.$buefy.dialog.alert("キーワードを設定してください。");
+      }
+    }
   }
 };
 </script>
