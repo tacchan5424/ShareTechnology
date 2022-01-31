@@ -1,5 +1,7 @@
 <template>
-  <b-button :type="type" :class="classes" @click="func">{{ text }}</b-button>
+  <div :class="divClass">
+    <b-button :type="type" :class="classes" @click="func">{{ text }}</b-button>
+  </div>
 </template>
 
 <script>
@@ -8,9 +10,14 @@ export default {
     type: String,
     classes: String,
     text: String,
-    func: Function
+    func: Function,
+    divClass: String
   }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.header {
+  padding-top: 10px;
+}
+</style>

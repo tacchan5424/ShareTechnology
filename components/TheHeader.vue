@@ -1,36 +1,41 @@
 <template>
-  <div class="field is-grouped is-mobile has-background-primary">
-    <div class="control column is-3"></div>
-    <div class="control column is-3">
+  <div class="columns is-mobile has-background-primary">
+    <div class="column is-3"></div>
+    <div class="column is-3">
       <base-input
         v-model="query"
         :isEdit="true"
         type="search"
         icon="magnify"
+        divClass="header"
       ></base-input>
     </div>
-    <div class="control column is-1">
-      <base-button :func="this.searchTechnology" text="検索"></base-button>
+    <div class="column is-1">
+      <base-button
+        divClass="header"
+        :func="this.searchTechnology"
+        text="検索"
+      ></base-button>
     </div>
-    <div class="control column ">
+    <div class="column">
       <b-navbar class="has-background-primary">
         <template #start>
           <b-navbar-item
-            class="control column is-6 has-background-primary"
+            class="column is-6 has-background-primary"
             href="https://google.com"
           >
             <b-icon icon="plus"></b-icon>
             新規作成
           </b-navbar-item>
           <b-navbar-item
-            class="control column is-6 has-background-primary"
+            class="column is-6 has-background-primary"
             href="contact"
           >
             <b-icon icon="email"></b-icon>
             お問い合わせ
           </b-navbar-item>
           <b-navbar-item
-            class="control column is-6 has-background-primary"
+            class="column is-6 has-background-primary"
             href="userPolicy"
           >
             <b-icon icon="note"></b-icon>
