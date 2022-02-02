@@ -40,3 +40,19 @@ exports.findAll = async function(req, res) {
     res.end();
   }
 };
+
+// nameに対してlike検索
+exports.findLikeByName = async function(req, res) {
+  if (calledByService(req)) {
+    const db = await dbConnection.get();
+    // ひとまず1単語のみ検索
+    const result = await db
+      .collection("technology")
+      .find({ name: { $regex: req.query.query, $options: "i" } })
+      .toArray();
+    res.send(result);
+  } else {
+    res.status(404);
+    res.end();
+  }
+};

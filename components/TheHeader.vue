@@ -21,21 +21,21 @@
       <b-navbar class="has-background-primary">
         <template #start>
           <b-navbar-item
-            class="column is-6 has-background-primary"
+            class="column is-5 has-background-primary"
             href="https://google.com"
           >
             <b-icon icon="plus"></b-icon>
             新規作成
           </b-navbar-item>
           <b-navbar-item
-            class="column is-6 has-background-primary"
+            class="column is-5 has-background-primary"
             href="contact"
           >
             <b-icon icon="email"></b-icon>
             お問い合わせ
           </b-navbar-item>
           <b-navbar-item
-            class="column is-6 has-background-primary"
+            class="column is-5 has-background-primary"
             href="userPolicy"
           >
             <b-icon icon="note"></b-icon>
@@ -44,6 +44,7 @@
         </template>
       </b-navbar>
     </div>
+    <b-loading v-model="isLoading"></b-loading>
   </div>
 </template>
 
@@ -58,15 +59,34 @@ export default {
   },
   data() {
     return {
-      query: null
+      query: null,
+      isLoading: false
     };
   },
   methods: {
     searchTechnology() {
       if (this.query) {
-        // 全角スペース→半角スペース、半角スペースで区切る
+        this.isLoading = true;
+        // 全角スペースを半角スペースに変換、半角スペースでキーワードを区切る
         const queryList = this.query.replaceAll("　", " ").split(" ");
-        console.log(queryList);
+        // ひとまず1キーワードのみで検索する
+        this.$Axios
+          .get("api/findLikeByNameTechnology", {
+            params: {
+              query: this.query
+            }
+          })
+          .then(response => {
+            this.isLoading = false;
+            console.log(response.data);
+          })
+          .catch(() => {
+            this.$buefy.dialog.alert({
+              message: "エラーが発生しました。",
+              type: "is-danger"
+            });
+            this.isLoading = false;
+          });
       } else {
         this.$buefy.dialog.alert("キーワードを設定してください。");
       }

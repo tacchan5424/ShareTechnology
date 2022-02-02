@@ -56,9 +56,7 @@ export default {
       this.isLoading = true;
       this.$Axios
         .post("api/createContact", {
-          params: {
-            contact: this.contact
-          }
+          contact: this.contact
         })
         .then(response => {
           this.isLoading = false;
