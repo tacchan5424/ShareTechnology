@@ -13,7 +13,7 @@ exports.create = async function(req, res) {
   if (calledByService(req)) {
     const currentTime = moment();
     const db = await dbConnection.get();
-    const contact = req.body.params.contact;
+    const contact = req.body.contact;
     db.collection("contact").insertOne({
       createdAt: currentTime.format("YYYY/MM/DD HH:mm:ss"),
       updatedAt: null,

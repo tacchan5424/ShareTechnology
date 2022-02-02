@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="divClass">
     <section v-if="isEdit">
       <b-input
         v-model="localValue"
@@ -23,7 +23,8 @@ export default {
     classes: String,
     icon: String,
     placeholder: String,
-    isEdit: Boolean
+    isEdit: Boolean,
+    divClass: String
   },
   computed: {
     localValue: {
@@ -38,4 +39,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.header {
+  padding-top: 10px;
+}
+</style>

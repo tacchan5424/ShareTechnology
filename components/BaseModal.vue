@@ -1,68 +1,100 @@
 <template>
   <section>
-    <div class="modal-card is-gapless" style="width: auto">
+    <div class="modal-card" style="width: auto">
       <header class="modal-card-head">
         <p class="modal-card-title">新規作成画面</p>
         <button type="button" class="delete" @click="$emit('close')" />
       </header>
-
-      <base-input
-        v-model="message"
-        placeholder="edit me"
-        :isEdit="true"
-        type="textbox"
-      ></base-input>
-
-      <p style="background-color: #ffffff">{{ message }}とは</p>
-      <base-input v-model="detail" :isEdit="true" type="textarea"></base-input>
-
-      <b-field
-        horizontal
-        label="参考用のサイト名："
-        class="noMargin control column is-10 control columns is-centered"
-      >
-        <base-input v-model="detail" :isEdit="true" type="textbox"></base-input>
-      </b-field>
-
-      <b-field horizontal label="参考用URL名：" class="noMargin">
-        <base-input v-model="detail" :isEdit="true" type="textbox"></base-input>
-      </b-field>
-
-      <b-field horizontal label="参考用のサイト名：" class="noMargin">
-        <base-input v-model="detail" :isEdit="true" type="textbox"></base-input>
-      </b-field>
-
-      <b-field horizontal label="参考用URL名：" class="noMargin">
-        <base-input v-model="detail" :isEdit="true" type="textbox"></base-input>
-      </b-field>
-
-      <b-field horizontal label="参考用のサイト名：" class="noMargin">
-        <base-input v-model="detail" :isEdit="true" type="textbox"></base-input>
-      </b-field>
-
-      <b-field horizontal label="参考用URL名：" class="noMargin">
-        <base-input v-model="detail" :isEdit="true" type="textbox"></base-input>
-      </b-field>
-
-      <b-field horizontal label="参考用のサイト名：" class="noMargin">
-        <base-input v-model="detail" :isEdit="true" type="textbox"></base-input>
-      </b-field>
-
-      <b-field horizontal label="参考用URL名：" class="noMargin">
-        <base-input v-model="detail" :isEdit="true" type="textbox"></base-input>
-      </b-field>
-
-      <b-field horizontal label="参考用のサイト名：" class="noMargin">
-        <base-input v-model="detail" :isEdit="true" type="textbox"></base-input>
-      </b-field>
-
-      <b-field horizontal label="参考用URL名：" class="noMargin">
-        <base-input v-model="detail" :isEdit="true" type="textbox"></base-input>
-      </b-field>
-
-      <footer class="modal-card-foot">
-        <base-button text="送信"></base-button>
-      </footer>
+      <section class="modal-card-body">
+        <b-field>
+          <base-input
+            v-model="message"
+            placeholder="タイトル"
+            :isEdit="true"
+            type="textbox"
+          ></base-input>
+        </b-field>
+        <b-field label="説明">
+          <base-input
+            v-model="detail"
+            :isEdit="true"
+            type="textarea"
+          ></base-input>
+        </b-field>
+        <b-field horizontal label="参考用のサイト名：" class="noMargin">
+          <base-input
+            v-model="detail"
+            :isEdit="true"
+            type="textbox"
+          ></base-input>
+        </b-field>
+        <b-field horizontal label="参考用URL名：" class="noMargin">
+          <base-input
+            v-model="detail"
+            :isEdit="true"
+            type="textbox"
+          ></base-input>
+        </b-field>
+        <b-field horizontal label="参考用のサイト名：" class="noMargin">
+          <base-input
+            v-model="detail"
+            :isEdit="true"
+            type="textbox"
+          ></base-input>
+        </b-field>
+        <b-field horizontal label="参考用URL名：" class="noMargin">
+          <base-input
+            v-model="detail"
+            :isEdit="true"
+            type="textbox"
+          ></base-input>
+        </b-field>
+        <b-field horizontal label="参考用のサイト名：" class="noMargin">
+          <base-input
+            v-model="detail"
+            :isEdit="true"
+            type="textbox"
+          ></base-input>
+        </b-field>
+        <b-field horizontal label="参考用URL名：" class="noMargin">
+          <base-input
+            v-model="detail"
+            :isEdit="true"
+            type="textbox"
+          ></base-input>
+        </b-field>
+        <b-field horizontal label="参考用のサイト名：" class="noMargin">
+          <base-input
+            v-model="detail"
+            :isEdit="true"
+            type="textbox"
+          ></base-input>
+        </b-field>
+        <b-field horizontal label="参考用URL名：" class="noMargin">
+          <base-input
+            v-model="detail"
+            :isEdit="true"
+            type="textbox"
+          ></base-input>
+        </b-field>
+        <b-field horizontal label="参考用のサイト名：" class="noMargin">
+          <base-input
+            v-model="detail"
+            :isEdit="true"
+            type="textbox"
+          ></base-input>
+        </b-field>
+        <b-field horizontal label="参考用URL名：" class="noMargin">
+          <base-input
+            v-model="detail"
+            :isEdit="true"
+            type="textbox"
+          ></base-input>
+        </b-field>
+        <footer class="modal-card-foot">
+          <base-button classes="is-primary" text="送信"></base-button>
+        </footer>
+      </section>
     </div>
   </section>
 </template>
@@ -87,9 +119,4 @@ export default {
 };
 </script>
 
-<style>
-.noMargin {
-  margin: 0px !important; /*恐らくbuefyで使用されているCSSの優先度の方が高く、上手く修正できなかったため、簡易的に最優先になる!importantを使用*/
-  background-color: #ffffff;
-}
-</style>
+<style scoped></style>

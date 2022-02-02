@@ -14,4 +14,5 @@ module.exports = function(app) {
   app.route("/api/createTechnology").post(technorogyApi.create);
   app.route("/api/updateTechnology").put(technorogyApi.save);
   app.route("/api/findAllTechnology").get(technorogyApi.findAll);
+  app.route("/api/findLikeByNameTechnology").get(technorogyApi.findLikeByName);
 };
