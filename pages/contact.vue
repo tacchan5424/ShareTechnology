@@ -1,28 +1,14 @@
 <template>
-  <div class="has-background-white-ter">
+  <div>
     <the-header></the-header>
-    <div class="control columns">
-      <div class="control column is-offset-2">
-        <base-select v-model="contact.tag" :options="contactTags"></base-select>
-      </div>
+    <div class="control column">
+      <base-select v-model="tag" :options="contactTags"></base-select>
     </div>
-    <div class="control columns is-centered">
-      <div class="control column is-8">
-        <base-input
-          v-model="contact.detail"
-          :isEdit="true"
-          type="textarea"
-        ></base-input>
-      </div>
+    <div class="control column">
+      <base-input v-model="detail" :isEdit="true" type="textarea"></base-input>
     </div>
-    <div class="control columns">
-      <div class="control column is-offset-2">
-        <base-button
-          classes="is-success"
-          :func="this.createContact"
-          text="送信"
-        ></base-button>
-      </div>
+    <div class="control column">
+      <base-button :func="this.createContact" text="送信"></base-button>
     </div>
     <b-loading v-model="isLoading"></b-loading>
   </div>
