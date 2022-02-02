@@ -17,7 +17,7 @@
         <template #start>
           <b-navbar-item
             class="control column is-6 has-background-primary"
-            href="https://google.com"
+            @click="cardModal"
           >
             <b-icon icon="plus"></b-icon>
             新規作成
@@ -45,6 +45,7 @@
 <script>
 import BaseInput from "~/components/BaseInput.vue";
 import BaseButton from "~/components/BaseButton.vue";
+import BaseModal from "~/components/BaseModal.vue";
 
 export default {
   components: {
@@ -57,7 +58,16 @@ export default {
     };
   },
   methods: {
-    searchTechnology() {}
+    searchTechnology() {},
+    cardModal() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: BaseModal,
+        hasModalCard: false,
+        customClass: "custom-class custom-class-2",
+        trapFocus: true
+      });
+    }
   }
 };
 </script>
