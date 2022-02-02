@@ -21,8 +21,8 @@
       <b-navbar class="has-background-primary">
         <template #start>
           <b-navbar-item
-            class="column is-5 has-background-primary"
-            href="https://google.com"
+            class="column is-6 has-background-primary"
+            @click="cardModal"
           >
             <b-icon icon="plus"></b-icon>
             新規作成
@@ -51,6 +51,7 @@
 <script>
 import BaseInput from "~/components/BaseInput.vue";
 import BaseButton from "~/components/BaseButton.vue";
+import BaseModal from "~/components/BaseModal.vue";
 
 export default {
   components: {
@@ -90,6 +91,15 @@ export default {
       } else {
         this.$buefy.dialog.alert("キーワードを設定してください。");
       }
+    },
+    cardModal() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: BaseModal,
+        hasModalCard: false,
+        customClass: "custom-class custom-class-2",
+        trapFocus: true
+      });
     }
   }
 };
