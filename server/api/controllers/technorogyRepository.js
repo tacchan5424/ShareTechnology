@@ -49,6 +49,7 @@ exports.findLikeByName = async function(req, res) {
     const result = await db
       .collection("technology")
       .find({ name: { $regex: req.query.query, $options: "i" } })
+      .limit(50)
       .toArray();
     res.send(result);
   } else {

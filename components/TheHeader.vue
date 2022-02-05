@@ -79,7 +79,7 @@ export default {
           })
           .then(response => {
             this.isLoading = false;
-            console.log(response.data);
+            this.$emit("clickSearchButton", response.data);
           })
           .catch(() => {
             this.$buefy.dialog.alert({
