@@ -1,11 +1,31 @@
 <template>
   <div class="has-background-white-ter">
-    <the-header></the-header>
+    <the-header @clickSearchButton="setTechnologyList"></the-header>
     <box
-      v-for="technology in this.technologyList"
+      v-for="technology in paginatedTechnologyList"
       :key="technology._id"
       :content="technology"
     ></box>
+    <div class="columns is-centered">
+      <b-pagination
+        :total="total"
+        v-model="current"
+        :range-before="rangeBefore"
+        :range-after="rangeAfter"
+        :order="order"
+        :size="size"
+        :simple="isSimple"
+        :rounded="isRounded"
+        :per-page="perPage"
+        :icon-prev="prevIcon"
+        :icon-next="nextIcon"
+        aria-next-label="Next page"
+        aria-previous-label="Previous page"
+        aria-page-label="Page"
+        aria-current-label="Current page"
+      >
+      </b-pagination>
+    </div>
   </div>
 </template>
 
@@ -19,7 +39,20 @@ export default {
     TheHeader
   },
   data() {
-    return { technologyList: [] };
+    return {
+      technologyList: [],
+      // total: 200,
+      current: 1,
+      perPage: 1,
+      rangeBefore: 2,
+      rangeAfter: 2,
+      isSimple: false,
+      isRounded: false,
+      prevIcon: "chevron-left",
+      nextIcon: "chevron-right",
+      order: "",
+      size: ""
+    };
   },
   async asyncData(app) {
     const technologyList = [];
@@ -38,23 +71,24 @@ export default {
       technologyList: technologyList
     };
   },
+  computed: {
+    total() {
+      return this.technologyList.length;
+    },
+    paginatedTechnologyList() {
+      // ページ数に応じた検索結果を返す
+      const pageNumber = this.current - 1;
+      return this.technologyList.slice(
+        pageNumber * this.perPage,
+        (pageNumber + 1) * this.perPage
+      );
+    }
+  },
   methods: {
-    // searchTechnology(params) {
-    //   // 技術情報取得
-    //   this.$Axios
-    //     .get("")
-    //     .then(response => {
-    //       this.technology = response.body;
-    //       // 技術詳細情報取得
-    //       this.$Axios
-    //         .get("")
-    //         .then(response => {
-    //           technologyDetails = response.body;
-    //         })
-    //         .catch(error => {});
-    //     })
-    //     .catch(error => {});
-    // }
+    setTechnologyList(res) {
+      this.technologyList = res;
+      console.log(this.technologyList);
+    }
   }
 };
 </script>

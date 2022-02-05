@@ -8,7 +8,7 @@
       <section class="modal-card-body">
         <b-field>
           <base-input
-            v-model="message"
+            v-model="technology.name"
             placeholder="タイトル"
             :isEdit="true"
             type="textbox"
@@ -16,83 +16,39 @@
         </b-field>
         <b-field label="説明">
           <base-input
-            v-model="detail"
+            v-model="technology.detail"
             :isEdit="true"
             type="textarea"
           ></base-input>
         </b-field>
-        <b-field horizontal label="参考用のサイト名：" class="noMargin">
-          <base-input
-            v-model="detail"
-            :isEdit="true"
-            type="textbox"
-          ></base-input>
-        </b-field>
-        <b-field horizontal label="参考用URL名：" class="noMargin">
-          <base-input
-            v-model="detail"
-            :isEdit="true"
-            type="textbox"
-          ></base-input>
-        </b-field>
-        <b-field horizontal label="参考用のサイト名：" class="noMargin">
-          <base-input
-            v-model="detail"
-            :isEdit="true"
-            type="textbox"
-          ></base-input>
-        </b-field>
-        <b-field horizontal label="参考用URL名：" class="noMargin">
-          <base-input
-            v-model="detail"
-            :isEdit="true"
-            type="textbox"
-          ></base-input>
-        </b-field>
-        <b-field horizontal label="参考用のサイト名：" class="noMargin">
-          <base-input
-            v-model="detail"
-            :isEdit="true"
-            type="textbox"
-          ></base-input>
-        </b-field>
-        <b-field horizontal label="参考用URL名：" class="noMargin">
-          <base-input
-            v-model="detail"
-            :isEdit="true"
-            type="textbox"
-          ></base-input>
-        </b-field>
-        <b-field horizontal label="参考用のサイト名：" class="noMargin">
-          <base-input
-            v-model="detail"
-            :isEdit="true"
-            type="textbox"
-          ></base-input>
-        </b-field>
-        <b-field horizontal label="参考用URL名：" class="noMargin">
-          <base-input
-            v-model="detail"
-            :isEdit="true"
-            type="textbox"
-          ></base-input>
-        </b-field>
-        <b-field horizontal label="参考用のサイト名：" class="noMargin">
-          <base-input
-            v-model="detail"
-            :isEdit="true"
-            type="textbox"
-          ></base-input>
-        </b-field>
-        <b-field horizontal label="参考用URL名：" class="noMargin">
-          <base-input
-            v-model="detail"
-            :isEdit="true"
-            type="textbox"
-          ></base-input>
-        </b-field>
+        <div v-for="(link, index) in linkList" :key="link" class="mb-3">
+          <b-field horizontal label="参考用のサイト名：">
+            <base-input
+              v-model="linkTitleList[index]"
+              :isEdit="true"
+              type="textbox"
+            ></base-input>
+          </b-field>
+          <b-field horizontal label="参考用URL名：">
+            <base-input
+              v-model="linkList[index]"
+              :isEdit="true"
+              type="textbox"
+            ></base-input>
+          </b-field>
+        </div>
+        <base-button
+          classes="is-primary mb-3"
+          divClass="has-text-right"
+          text="追加"
+          :func="this.addLinkInfo"
+        ></base-button>
         <footer class="modal-card-foot">
-          <base-button classes="is-primary" text="送信"></base-button>
+          <base-button
+            classes="is-primary"
+            text="送信"
+            :func="this.createTechnology"
+          ></base-button>
         </footer>
       </section>
     </div>
@@ -108,13 +64,28 @@ export default {
     BaseInput,
     BaseButton
   },
-
   data() {
+    const Technology = require("~/server/api/models/technology");
     return {
-      technology: null,
-      technologyDetails: null,
-      message: null
+      technology: new Technology(),
+      linkList: [],
+      linkTitleList: []
     };
+  },
+  methods: {
+    addLinkInfo() {
+      // リンク情報に空欄がない場合のみ追加できる
+      if (!this.linkList.includes("") && !this.linkTitleList.includes("")) {
+        this.linkList.push("");
+        this.linkTitleList.push("");
+      } else {
+        this.$buefy.dialog.alert("リンク情報に空欄があります。");
+      }
+    },
+    createTechnology() {
+      this.technology.linkList = this.linkList;
+      this.technology.linkTitleList = this.linkTitleList;
+    }
   }
 };
 </script>
