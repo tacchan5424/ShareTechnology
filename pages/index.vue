@@ -43,7 +43,7 @@ export default {
       technologyList: [],
       // total: 200,
       current: 1,
-      perPage: 1,
+      perPage: 10,
       rangeBefore: 2,
       rangeAfter: 2,
       isSimple: false,

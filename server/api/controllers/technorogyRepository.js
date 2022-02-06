@@ -1,4 +1,5 @@
 const dbConnection = require("../models/mongodb");
+const moment = require("moment");
 const customHeader = "ShareTechnology";
 
 function calledByService(req) {
@@ -8,14 +9,26 @@ function calledByService(req) {
 
 // 技術情報作成
 exports.create = async function(req, res) {
-  const db = await dbConnection.get();
-  db.collection("technology").insertOne({
-    name: req.name,
-    createdAt: req.createdAt,
-    updatedAt: req.updatedAt,
-    usedCount: req.usedCount
-  });
-  res.end("呼べたよ");
+  if (calledByService(req)) {
+    const currentTime = moment();
+    const db = await dbConnection.get();
+    const technology = req.body.technology;
+    db.collection("technology").insertOne({
+      name: req.name,
+      createdAt: currentTime.format("YYYY/MM/DD HH:mm:ss"),
+      updatedAt: null,
+      name: technology.name,
+      detail: technology.detail,
+      tags: technology.tags,
+      linkTitles: technology.linkTitles,
+      links: technology.links,
+      usedCount: 0
+    });
+    res.end();
+  } else {
+    res.status(404);
+    res.end();
+  }
 };
 
 // 技術情報更新
