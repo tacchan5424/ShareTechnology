@@ -71,7 +71,7 @@ export default {
       linkList: [],
       linkTitleList: [],
       hasNotNullLinkList: [],
-      hasNotLinkTitleList: []
+      hasNotNullLinkTitleList: []
     };
   },
   methods: {
@@ -95,10 +95,34 @@ export default {
 
         // 事前チェックで片方のみnullのケースはエラーとしているので、両方nullのケースしか存在しない
         this.hasNotNullLinkList = this.linkList.filter(link => link);
-        this.hasNotLinkTitleList = this.linkTitleList.filter(title => title);
+        this.hasNotNullLinkTitleList = this.linkTitleList.filter(
+          title => title
+        );
+
+        // 安全なリンクか否かチェック
+        this.hasNotNullLinkList.forEach(link => {
+          this.$AxiosGoogle
+            .get("", {
+              params: {
+                key: "AIzaSyD2gWMyXlS_AIDx4HjwFsD4WcIqUfcBkgc",
+                threatTypes: [
+                  "MALWARE",
+                  "SOCIAL_ENGINEERING",
+                  "UNWANTED_SOFTWARE"
+                ],
+                uri: link
+              }
+            })
+            .then(response => {
+              console.log(response);
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        });
 
         this.technology.links = this.hasNotNullLinkList;
-        this.technology.linkTitles = this.hasNotLinkTitleList;
+        this.technology.linkTitles = this.hasNotNullLinkTitleList;
 
         this.$Axios
           .post("api/createTechnology", {

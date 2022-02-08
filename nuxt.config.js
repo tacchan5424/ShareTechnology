@@ -34,6 +34,10 @@ module.exports = {
       }
     }
   },
-  plugins: ["~/plugins/buefy.js", "~/plugins/axios.js"],
+  plugins: [
+    "~/plugins/buefy.js",
+    "~/plugins/axios.js",
+    "~/plugins/axiosGoogle.js"
+  ],
   telemetry: false
 };
