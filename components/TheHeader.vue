@@ -8,6 +8,7 @@
         type="search"
         icon="magnify"
         divClass="header"
+        v-if="needSearch"
       ></base-input>
     </div>
     <div class="column is-1">
@@ -15,6 +16,7 @@
         divClass="header"
         :func="this.searchTechnology"
         text="検索"
+        v-if="needSearch"
       ></base-button>
     </div>
     <div class="column">
@@ -57,6 +59,9 @@ export default {
   components: {
     BaseInput,
     BaseButton
+  },
+  props: {
+    needSearch: Boolean
   },
   data() {
     return {

@@ -1,6 +1,9 @@
 <template>
   <div class="has-background-white-ter">
-    <the-header @clickSearchButton="setTechnologyList"></the-header>
+    <the-header
+      :needSearch="true"
+      @clickSearchButton="setTechnologyList"
+    ></the-header>
     <box
       v-for="technology in paginatedTechnologyList"
       :key="technology._id"
