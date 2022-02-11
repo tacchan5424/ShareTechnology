@@ -1,6 +1,6 @@
 <template>
   <div class="has-background-white-ter">
-    <the-header></the-header>
+    <the-header :needSearch="false"></the-header>
     <div class="control columns">
       <div class="control column is-offset-2">
         <base-select v-model="contact.tag" :options="contactTags"></base-select>
