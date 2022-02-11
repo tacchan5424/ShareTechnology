@@ -68,10 +68,10 @@ export default {
     const Technology = require("~/server/api/models/technology");
     return {
       technology: new Technology(),
-      linkList: [],
-      linkTitleList: [],
+      linkList: [""],
+      linkTitleList: [""],
       hasNotNullLinkList: [],
-      hasNotLinkTitleList: []
+      hasNotNullLinkTitleList: []
     };
   },
   methods: {
@@ -89,33 +89,52 @@ export default {
         this.$buefy.dialog.alert("リンク情報に空欄があります。");
       }
     },
-    createTechnology() {
+    async createTechnology() {
       if (this.canSave()) {
         this.isLoading = true;
 
         // 事前チェックで片方のみnullのケースはエラーとしているので、両方nullのケースしか存在しない
         this.hasNotNullLinkList = this.linkList.filter(link => link);
-        this.hasNotLinkTitleList = this.linkTitleList.filter(title => title);
+        this.hasNotNullLinkTitleList = this.linkTitleList.filter(
+          title => title
+        );
 
-        this.technology.links = this.hasNotNullLinkList;
-        this.technology.linkTitles = this.hasNotLinkTitleList;
+        // 不正なリンクが存在しないかチェック
+        const safeLinkList = [];
+        for (let i = 0; i < this.hasNotNullLinkList.length; i++) {
+          if (await this.isSafeLink(this.hasNotNullLinkList[i]))
+            safeLinkList.push(this.hasNotNullLinkList[i]);
+        }
 
-        this.$Axios
-          .post("api/createTechnology", {
-            technology: this.technology
-          })
-          .then(response => {
-            this.isLoading = false;
-            this.$buefy.dialog.alert("登録されました。");
-            this.$emit("close");
-          })
-          .catch(() => {
-            this.$buefy.dialog.alert({
-              message: "エラーが発生しました。",
-              type: "is-danger"
+        if (safeLinkList.length === this.hasNotNullLinkList.length) {
+          this.technology.links = this.hasNotNullLinkList;
+          this.technology.linkTitles = this.hasNotNullLinkTitleList;
+
+          await this.$Axios
+            .post("api/createTechnology", {
+              technology: this.technology
+            })
+            .then(response => {
+              this.isLoading = false;
+              this.$buefy.dialog.alert("登録されました。");
+              this.$emit("close");
+              this.isLoading = false;
+            })
+            .catch(() => {
+              this.$buefy.dialog.alert({
+                message: "エラーが発生しました。",
+                type: "is-danger"
+              });
+              this.isLoading = false;
+              this.isLoading = false;
             });
-            this.isLoading = false;
+        } else {
+          this.$buefy.dialog.alert({
+            message: "危険なリンクが含まれています。",
+            type: "is-danger"
           });
+          this.isLoading = false;
+        }
       }
     },
     canSave() {
@@ -145,6 +164,28 @@ export default {
       }).length;
 
       return isLinkEmptyCount + isLinkTitleEmptyCount;
+    },
+    async isSafeLink(link) {
+      console.log("呼ばれた");
+      let isSafe = true;
+      // 安全なリンクか否かチェック
+      await this.$AxiosGoogle
+        .get("", {
+          params: {
+            key: "AIzaSyB1LTt_fFnGBKUdBe2opafUGFg_afMNcSo",
+            uri: link,
+            threatTypes: "MALWARE"
+          }
+        })
+        .then(response => {
+          if (Object.keys(response.data).length) {
+            isSafe = false;
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      return isSafe;
     }
   }
 };
