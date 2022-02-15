@@ -15,4 +15,5 @@ module.exports = function(app) {
   app.route("/api/updateTechnology").put(technorogyApi.save);
   app.route("/api/findAllTechnology").get(technorogyApi.findAll);
   app.route("/api/findLikeByNameTechnology").get(technorogyApi.findLikeByName);
+  app.route("/api/incrementUserCount").put(technorogyApi.increment);
 };

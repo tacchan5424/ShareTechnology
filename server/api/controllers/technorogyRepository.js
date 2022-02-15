@@ -1,6 +1,7 @@
 const dbConnection = require("../models/mongodb");
 const moment = require("moment");
 const customHeader = "ShareTechnology";
+const ObjectId = require("mongodb").ObjectID;
 
 function calledByService(req) {
   if (req.header("X-Custom-Auth"))
@@ -64,6 +65,23 @@ exports.findLikeByName = async function(req, res) {
       .find({ name: { $regex: req.query.query, $options: "i" } })
       .limit(50)
       .toArray();
+    res.send(result);
+  } else {
+    res.status(404);
+    res.end();
+  }
+};
+
+// usedCountに1を加算
+exports.increment = async function(req, res) {
+  if (calledByService(req)) {
+    const technology = req.body.technology;
+    const db = await dbConnection.get();
+    // 使ってる数をインクリメント
+    // 最新の実装が不明なので非推奨の実装を採用
+    const result = await db
+      .collection("technology")
+      .updateOne({ _id: ObjectId(technology._id) }, { $inc: { usedCount: 1 } });
     res.send(result);
   } else {
     res.status(404);

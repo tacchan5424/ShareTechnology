@@ -8,7 +8,7 @@ module.exports = class Technology extends Base {
     this.tags = null;
     this.linkTitles = null;
     this.links = null;
-    this.usedCount = null;
+    this.usedCount = 0;
   }
 
   toJson() {
