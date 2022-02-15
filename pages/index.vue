@@ -4,11 +4,11 @@
       :needSearch="true"
       @clickSearchButton="setTechnologyList"
     ></the-header>
-    <box
+    <the-box
       v-for="technology in paginatedTechnologyList"
       :key="technology._id"
       :content="technology"
-    ></box>
+    ></the-box>
     <div class="columns is-centered">
       <b-pagination
         :total="total"
@@ -33,12 +33,12 @@
 </template>
 
 <script>
-import Box from "~/components/Box.vue";
+import TheBox from "~/components/TheBox.vue";
 import TheHeader from "~/components/TheHeader.vue";
 
 export default {
   components: {
-    Box,
+    TheBox,
     TheHeader
   },
   data() {

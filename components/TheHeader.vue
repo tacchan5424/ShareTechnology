@@ -1,6 +1,8 @@
 <template>
   <div class="columns is-mobile has-background-primary">
-    <div class="column is-3"></div>
+    <div class="column is-3">
+      <b-icon icon="home" size="is-large"></b-icon>
+    </div>
     <div class="column is-3">
       <base-input
         v-model="query"
@@ -53,7 +55,7 @@
 <script>
 import BaseInput from "~/components/BaseInput.vue";
 import BaseButton from "~/components/BaseButton.vue";
-import BaseModal from "~/components/BaseModal.vue";
+import TheCreateTechnologyModal from "~/components/TheCreateTechnologyModal.vue";
 
 export default {
   components: {
@@ -100,7 +102,7 @@ export default {
     cardModal() {
       this.$buefy.modal.open({
         parent: this,
-        component: BaseModal,
+        component: TheCreateTechnologyModal,
         hasModalCard: false,
         customClass: "custom-class custom-class-2",
         trapFocus: true

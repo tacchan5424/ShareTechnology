@@ -1,6 +1,8 @@
 <template>
   <div :class="divClass">
-    <b-button :type="type" :class="classes" @click="func">{{ text }}</b-button>
+    <b-button :type="type" :class="classes" :icon-left="icon" @click="func">{{
+      text
+    }}</b-button>
   </div>
 </template>
 
@@ -11,7 +13,8 @@ export default {
     classes: String,
     text: String,
     func: Function,
-    divClass: String
+    divClass: String,
+    icon: String
   }
 };
 </script>

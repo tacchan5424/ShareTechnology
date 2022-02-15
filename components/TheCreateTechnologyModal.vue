@@ -51,6 +51,7 @@
           ></base-button>
         </footer>
       </section>
+      <b-loading v-model="isLoading"></b-loading>
     </div>
   </section>
 </template>
@@ -71,7 +72,8 @@ export default {
       linkList: [""],
       linkTitleList: [""],
       hasNotNullLinkList: [],
-      hasNotNullLinkTitleList: []
+      hasNotNullLinkTitleList: [],
+      isLoading: false
     };
   },
   methods: {
@@ -118,14 +120,12 @@ export default {
               this.isLoading = false;
               this.$buefy.dialog.alert("登録されました。");
               this.$emit("close");
-              this.isLoading = false;
             })
             .catch(() => {
               this.$buefy.dialog.alert({
                 message: "エラーが発生しました。",
                 type: "is-danger"
               });
-              this.isLoading = false;
               this.isLoading = false;
             });
         } else {
