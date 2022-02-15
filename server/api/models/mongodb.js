@@ -8,6 +8,9 @@ const client = new MongoClient(uri, {
   useUnifiedTopology: true
 });
 
+//import MongodbAnother from "~/models/mongodbAnother.vue";
+const ma = require('./mongodbAnother.js');
+
 class Mongodb {
   constructor() {
     this.db = null;
@@ -23,8 +26,8 @@ class Mongodb {
           console.log("接続成功");
           this.db = client.db(dbName);
         })
-        .catch(error => {
-          throw error;
+        .catch(async error => {
+          this.db = await ma.get();
         });
     }
     return this.db;
