@@ -15,13 +15,14 @@
           <a
             v-for="(linkTitle, index) in content.linkTitles"
             :key="index"
-            :href="content.links[index]"
-            target="_blank"
+            href="javascript:void(0)"
+            @click="redirect(content.links[index])"
           >
             {{ linkTitle }}
           </a>
         </div>
       </div>
+      <b-loading v-model="isLoading"></b-loading>
     </div>
   </div>
 </template>
@@ -35,7 +36,8 @@ export default {
   },
   data() {
     return {
-      iterator: 0
+      iterator: 0,
+      isLoading: false
     };
   },
   props: {
@@ -43,6 +45,7 @@ export default {
   },
   methods: {
     incrementUsedCount() {
+      this.isLoading = true;
       this.$Axios
         .put("api/incrementUserCount", {
           technology: this.content
@@ -57,6 +60,35 @@ export default {
             type: "is-danger"
           });
           this.isLoading = false;
+        });
+    },
+    async redirect(link) {
+      this.isLoading = true;
+      // 安全なリンクか否かチェック
+      await this.$AxiosGoogle
+        .get("", {
+          params: {
+            key: "AIzaSyB1LTt_fFnGBKUdBe2opafUGFg_afMNcSo",
+            uri: link,
+            threatTypes: "MALWARE",
+            threatTypes: "SOCIAL_ENGINEERING",
+            threatTypes: "UNWANTED_SOFTWARE"
+          }
+        })
+        .then(response => {
+          this.isLoading = false;
+          if (Object.keys(response.data).length) {
+            this.$buefy.dialog.alert({
+              message: "危険なリンクのため遷移できません。",
+              type: "is-danger"
+            });
+          } else {
+            window.open(link, "_blank");
+          }
+        })
+        .catch(error => {
+          this.isLoading = false;
+          console.log(error);
         });
     }
   }
