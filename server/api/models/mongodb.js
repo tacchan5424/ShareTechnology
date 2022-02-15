@@ -9,7 +9,7 @@ const client = new MongoClient(uri, {
 });
 
 //import MongodbAnother from "~/models/mongodbAnother.vue";
-const ma = require('./mongodbAnother.js');
+const mongodbAnother = require('./mongodbAnother.js');
 
 class Mongodb {
   constructor() {
@@ -27,7 +27,7 @@ class Mongodb {
           this.db = client.db(dbName);
         })
         .catch(async error => {
-          this.db = await ma.get();
+          this.db = await mongodbAnother.get();
         });
     }
     return this.db;

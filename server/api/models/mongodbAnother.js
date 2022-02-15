@@ -1,15 +1,11 @@
-//const { MongoClient } = require("mongodb");
 const user = "user";
 const password = "userPassword";
 const dbName = "technology";
 let collection = null;
 
-var MongoClient = require('mongodb').MongoClient;
-var uri = `mongodb://${user}:${password}@cluster0-shard-00-00.u0oyz.mongodb.net:27017/${dbName}?ssl=true&replicaSet=atlas-108gzm-shard-0&authSource=admin&retryWrites=true&w=majority`;
-MongoClient.connect(uri, function(err, client) {
-  collection = client.db(dbName);
-  // perform actions on the collection object
-});
+const MongoClient = require('mongodb').MongoClient;
+const uri = `mongodb://${user}:${password}@cluster0-shard-00-00.u0oyz.mongodb.net:27017/${dbName}?ssl=true&replicaSet=atlas-108gzm-shard-0&authSource=admin&retryWrites=true&w=majority`;
+
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
