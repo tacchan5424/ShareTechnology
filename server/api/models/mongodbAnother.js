@@ -1,20 +1,20 @@
-const { MongoClient } = require("mongodb");
 const user = "user";
 const password = "userPassword";
 const dbName = "technology";
-const uri = `mongodb+srv://${user}:${password}@cluster0.u0oyz.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+let collection = null;
+
+const MongoClient = require('mongodb').MongoClient;
+const uri = `mongodb://${user}:${password}@cluster0-shard-00-00.u0oyz.mongodb.net:27017/${dbName}?ssl=true&replicaSet=atlas-108gzm-shard-0&authSource=admin&retryWrites=true&w=majority`;
+
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
-//import MongodbAnother from "~/models/mongodbAnother.vue";
-const mongodbAnother = require('./mongodbAnother.js');
-
-class Mongodb {
-  constructor() {
-    this.db = null;
-  }
+class MongodbAnother {
+    constructor() {
+      this.db = null;
+    }
 
   async get() {
     // 一度もインスタンス生成されていない場合のみDB接続情報取得
@@ -26,12 +26,12 @@ class Mongodb {
           console.log("接続成功");
           this.db = client.db(dbName);
         })
-        .catch(async error => {
-          this.db = await mongodbAnother.get();
+        .catch(error => {
+          throw error;
         });
     }
     return this.db;
   }
 }
 
-module.exports = new Mongodb();
+module.exports = new MongodbAnother();
