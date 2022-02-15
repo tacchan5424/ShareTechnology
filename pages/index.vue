@@ -62,7 +62,7 @@ export default {
     // 技術情報取得
     // 画面更新時にコールされていない
     await app.$Axios
-      .get("api/findAllTechnology")
+      .get("api/findAllOrderByUpdatedAtDesc")
       .then(response => {
         response.data.forEach(element => {
           technologyList.push(element);

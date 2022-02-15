@@ -1,9 +1,8 @@
-const user = "user";
-const password = "userPassword";
-const dbName = "technology";
-let collection = null;
+const user = process.env.USER_NAME;
+const password = process.env.PASSWORD;
+const dbName = process.env.DB_NAME;
 
-const MongoClient = require('mongodb').MongoClient;
+const MongoClient = require("mongodb").MongoClient;
 const uri = `mongodb://${user}:${password}@cluster0-shard-00-00.u0oyz.mongodb.net:27017/${dbName}?ssl=true&replicaSet=atlas-108gzm-shard-0&authSource=admin&retryWrites=true&w=majority`;
 
 const client = new MongoClient(uri, {
@@ -12,9 +11,9 @@ const client = new MongoClient(uri, {
 });
 
 class MongodbAnother {
-    constructor() {
-      this.db = null;
-    }
+  constructor() {
+    this.db = null;
+  }
 
   async get() {
     // 一度もインスタンス生成されていない場合のみDB接続情報取得

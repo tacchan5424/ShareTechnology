@@ -174,7 +174,9 @@ export default {
           params: {
             key: "AIzaSyB1LTt_fFnGBKUdBe2opafUGFg_afMNcSo",
             uri: link,
-            threatTypes: "MALWARE"
+            threatTypes: "MALWARE",
+            threatTypes: "SOCIAL_ENGINEERING",
+            threatTypes: "UNWANTED_SOFTWARE"
           }
         })
         .then(response => {
