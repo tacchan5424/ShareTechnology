@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 module.exports = {
   /*
    ** Headers of the page
@@ -38,5 +40,6 @@ module.exports = {
     "~/plugins/axios.js",
     "~/plugins/axiosGoogle.js"
   ],
+  modules: ["@nuxtjs/dotenv"],
   telemetry: false
 };

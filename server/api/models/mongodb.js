@@ -1,7 +1,7 @@
 const { MongoClient } = require("mongodb");
-const user = "user";
-const password = "userPassword";
-const dbName = "technology";
+const user = process.env.USER_NAME;
+const password = process.env.PASSWORD;
+const dbName = process.env.DB_NAME;
 const uri = `mongodb+srv://${user}:${password}@cluster0.u0oyz.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
@@ -9,7 +9,7 @@ const client = new MongoClient(uri, {
 });
 
 //import MongodbAnother from "~/models/mongodbAnother.vue";
-const mongodbAnother = require('./mongodbAnother.js');
+const mongodbAnother = require("./mongodbAnother.js");
 
 class Mongodb {
   constructor() {

@@ -1,11 +1,10 @@
 const dbConnection = require("../models/mongodb");
 const moment = require("moment");
-const customHeader = "ShareTechnology";
 const ObjectId = require("mongodb").ObjectID;
 
 function calledByService(req) {
   if (req.header("X-Custom-Auth"))
-    return req.header("X-Custom-Auth") === customHeader;
+    return req.header("X-Custom-Auth") === process.env.CUSTOM_HEADER;
 }
 
 // 技術情報作成
