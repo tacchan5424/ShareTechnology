@@ -79,7 +79,7 @@ export default {
         const queryList = this.query.replaceAll("　", " ").split(" ");
         // ひとまず1キーワードのみで検索する
         this.$Axios
-          .get("api/findLikeByNameTechnology", {
+          .get("api/findLikeByNameOrderByUsedCountDesc", {
             params: {
               query: this.query
             }

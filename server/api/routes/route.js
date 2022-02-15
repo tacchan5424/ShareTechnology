@@ -1,7 +1,7 @@
 module.exports = function(app) {
   const contactApi = require("../controllers/contactRepository");
   const information = require("../controllers/informationRepository");
-  const technorogyApi = require("../controllers/technorogyRepository");
+  const technologyApi = require("../controllers/technorogyRepository");
 
   app.route("/api/createContact").post(contactApi.create);
   app.route("/api/updateContact").put(contactApi.save);
@@ -11,9 +11,13 @@ module.exports = function(app) {
   app.route("/api/updateInformation").put(information.save);
   app.route("/api/findAllInformation").get(information.findAll);
 
-  app.route("/api/createTechnology").post(technorogyApi.create);
-  app.route("/api/updateTechnology").put(technorogyApi.save);
-  app.route("/api/findAllTechnology").get(technorogyApi.findAll);
-  app.route("/api/findLikeByNameTechnology").get(technorogyApi.findLikeByName);
-  app.route("/api/incrementUserCount").put(technorogyApi.increment);
+  app.route("/api/createTechnology").post(technologyApi.create);
+  app.route("/api/updateTechnology").put(technologyApi.save);
+  app
+    .route("/api/findAllOrderByUpdatedAtDesc")
+    .get(technologyApi.findAllOrderByUpdatedAtDesc);
+  app
+    .route("/api/findLikeByNameOrderByUsedCountDesc")
+    .get(technologyApi.findLikeByNameOrderByUsedCountDesc);
+  app.route("/api/incrementUserCount").put(technologyApi.increment);
 };

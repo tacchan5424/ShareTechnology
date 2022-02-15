@@ -13,6 +13,7 @@ exports.create = async function(req, res) {
     const currentTime = moment();
     const db = await dbConnection.get();
     const technology = req.body.technology;
+
     db.collection("technology").insertOne({
       name: req.name,
       createdAt: currentTime.format("YYYY/MM/DD HH:mm:ss"),
@@ -24,6 +25,7 @@ exports.create = async function(req, res) {
       links: technology.links,
       usedCount: 0
     });
+
     res.end();
   } else {
     res.status(404);
@@ -40,13 +42,19 @@ exports.save = async function(req, res) {
 };
 
 // 技術情報検索(全件検索)
-exports.findAll = async function(req, res) {
+// 更新日の降順でソート
+exports.findAllOrderByUpdatedAtDesc = async function(req, res) {
   if (calledByService(req)) {
     const db = await dbConnection.get();
+
+    // 更新日の降順でソート
     const result = await db
       .collection("technology")
       .find()
+      .limit(200)
+      .sort({ updatedAt: -1 })
       .toArray();
+
     res.send(result);
   } else {
     res.status(404);
@@ -55,15 +63,19 @@ exports.findAll = async function(req, res) {
 };
 
 // nameに対してlike検索
-exports.findLikeByName = async function(req, res) {
+// good数の降順でソート
+exports.findLikeByNameOrderByUsedCountDesc = async function(req, res) {
   if (calledByService(req)) {
     const db = await dbConnection.get();
+
     // ひとまず1単語のみ検索
     const result = await db
       .collection("technology")
       .find({ name: { $regex: req.query.query, $options: "i" } })
       .limit(50)
+      .sort({ usedCount: -1 })
       .toArray();
+
     res.send(result);
   } else {
     res.status(404);
@@ -74,13 +86,20 @@ exports.findLikeByName = async function(req, res) {
 // usedCountに1を加算
 exports.increment = async function(req, res) {
   if (calledByService(req)) {
+    const currentTime = moment();
     const technology = req.body.technology;
     const db = await dbConnection.get();
+
     // 使ってる数をインクリメント
     // 最新の実装が不明なので非推奨の実装を採用
     const result = await db
       .collection("technology")
-      .updateOne({ _id: ObjectId(technology._id) }, { $inc: { usedCount: 1 } });
+      .updateOne(
+        { _id: ObjectId(technology._id) },
+        { $set: { updatedAt: currentTime.format("YYYY/MM/DD HH:mm:ss") } },
+        { $inc: { usedCount: 1 } }
+      );
+
     res.send(result);
   } else {
     res.status(404);
