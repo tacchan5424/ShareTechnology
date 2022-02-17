@@ -7,7 +7,7 @@
     ></base-button>
     <div class="column is-mobile is-half">
       <div class="box">
-        <p class="title is-5">
+        <p class="title is-5" @click="cardModal">
           {{ this.content.name }}
         </p>
         <div class="">
@@ -29,6 +29,7 @@
 
 <script>
 import BaseButton from "~/components/BaseButton.vue";
+import TheEditTechnologyModal from "~/components/TheEditTechnologyModal.vue";
 
 export default {
   components: {
@@ -90,6 +91,16 @@ export default {
           this.isLoading = false;
           console.log(error);
         });
+    },
+    cardModal() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: TheEditTechnologyModal,
+        hasModalCard: false,
+        customClass: "custom-class custom-class-2",
+        trapFocus: true,
+        props: { id: this.content._id }
+      });
     }
   }
 };

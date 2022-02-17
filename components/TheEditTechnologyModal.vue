@@ -2,7 +2,7 @@
   <section>
     <div class="modal-card" style="width: auto">
       <header class="modal-card-head">
-        <p class="modal-card-title">新規作成画面</p>
+        <p class="modal-card-title">編集画面</p>
         <button type="button" class="delete" @click="$emit('close')" />
       </header>
       <section class="modal-card-body">
@@ -10,14 +10,14 @@
           <base-input
             v-model="technology.name"
             placeholder="タイトル"
-            :isEdit="true"
+            :isEdit="isEdit"
             type="textbox"
           ></base-input>
         </b-field>
         <b-field label="説明">
           <base-input
             v-model="technology.detail"
-            :isEdit="true"
+            :isEdit="isEdit"
             type="textarea"
           ></base-input>
         </b-field>
@@ -25,14 +25,14 @@
           <b-field horizontal label="参考用のサイト名：">
             <base-input
               v-model="linkTitleList[index]"
-              :isEdit="true"
+              :isEdit="isEdit"
               type="textbox"
             ></base-input>
           </b-field>
           <b-field horizontal label="参考用URL名：">
             <base-input
               v-model="linkList[index]"
-              :isEdit="true"
+              :isEdit="isEdit"
               type="textbox"
             ></base-input>
           </b-field>
@@ -46,8 +46,15 @@
         <footer class="modal-card-foot">
           <base-button
             classes="is-primary"
-            text="送信"
-            :func="this.createTechnology"
+            text="編集"
+            :func="this.changeMode"
+            :isEdit="!isEdit"
+          ></base-button>
+          <base-button
+            classes="is-primary"
+            text="更新"
+            :func="this.updateTechnology"
+            :isEdit="isEdit"
           ></base-button>
         </footer>
       </section>
@@ -73,10 +80,36 @@ export default {
       linkTitleList: [""],
       hasNotNullLinkList: [],
       hasNotNullLinkTitleList: [],
-      isLoading: false
+      isLoading: false,
+      isEdit: false
     };
   },
+  props: {
+    id: String
+  },
+  async created() {
+    await this.$Axios
+      .get("api/findOne", {
+        params: {
+          id: this.id
+        }
+      })
+      .then(response => {
+        this.technology = response.data;
+        this.linkList = this.technology.links;
+        this.linkTitleList = this.technology.linkTitles;
+      })
+      .catch(() => {
+        this.$buefy.dialog.alert({
+          message: "エラーが発生しました。",
+          type: "is-danger"
+        });
+      });
+  },
   methods: {
+    changeMode() {
+      this.isEdit = !this.isEdit;
+    },
     addLinkInfo() {
       // リンク情報に空欄がない場合のみ追加できる
       if (
@@ -91,7 +124,7 @@ export default {
         this.$buefy.dialog.alert("リンク情報に空欄があります。");
       }
     },
-    async createTechnology() {
+    async updateTechnology() {
       if (this.canSave()) {
         this.isLoading = true;
 
@@ -113,12 +146,12 @@ export default {
           this.technology.linkTitles = this.hasNotNullLinkTitleList;
 
           await this.$Axios
-            .post("api/createTechnology", {
+            .put("api/updateTechnology", {
               technology: this.technology
             })
             .then(response => {
               this.isLoading = false;
-              this.$buefy.dialog.alert("登録されました。");
+              this.$buefy.dialog.alert("保存されました。");
               this.$emit("close");
             })
             .catch(() => {
