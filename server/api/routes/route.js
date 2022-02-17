@@ -20,4 +20,5 @@ module.exports = function(app) {
     .route("/api/findLikeByNameOrderByUsedCountDesc")
     .get(technologyApi.findLikeByNameOrderByUsedCountDesc);
   app.route("/api/incrementUserCount").put(technologyApi.increment);
+  app.route("/api/findOne").get(technologyApi.findOne);
 };

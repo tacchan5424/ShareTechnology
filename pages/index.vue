@@ -90,7 +90,6 @@ export default {
   methods: {
     setTechnologyList(res) {
       this.technologyList = res;
-      console.log(this.technologyList);
     }
   }
 };

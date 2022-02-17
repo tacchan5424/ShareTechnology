@@ -35,10 +35,27 @@ exports.create = async function(req, res) {
 
 // 技術情報更新
 exports.save = async function(req, res) {
-  db.collection("technology").updateOne(
-    { _id: req._id },
-    { $set: [{ detail: req.detail }, { fixed: 1 }] }
-  );
+  if (calledByService(req)) {
+    const db = await dbConnection.get();
+    const currentTime = moment();
+    const technology = req.body.technology;
+    db.collection("technology").updateOne(
+      { _id: ObjectId(technology._id) },
+      {
+        $set: {
+          updatedAt: currentTime.format("YYYY/MM/DD HH:mm:ss"),
+          name: technology.name,
+          detail: technology.detail,
+          links: technology.links,
+          linkTitles: technology.linkTitles
+        }
+      }
+    );
+    res.end();
+  } else {
+    res.status(404);
+    res.end();
+  }
 };
 
 // 技術情報検索(全件検索)
@@ -100,6 +117,22 @@ exports.increment = async function(req, res) {
         { $inc: { usedCount: 1 } }
       );
 
+    res.send(result);
+  } else {
+    res.status(404);
+    res.end();
+  }
+};
+
+// 詳細画面で表示させる内容を取得
+exports.findOne = async function(req, res) {
+  if (calledByService(req)) {
+    const id = req.query.id;
+    const db = await dbConnection.get();
+
+    const result = await db
+      .collection("technology")
+      .findOne({ _id: ObjectId(id) });
     res.send(result);
   } else {
     res.status(404);

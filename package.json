@@ -5,7 +5,7 @@
   "author": "tacchan5424s <tacchan5424@yahoo.co.jp>",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "nodemon server/index.js --watch server",
     "devmon": "nodemon server/index.js --watch server",
     "build": "nuxt build",
     "start": "nuxt start",
@@ -19,6 +19,7 @@
     "axios": "^0.24.0",
     "buefy": "^0.9.10",
     "bulma": "^0.9.3",
+    "cross-env": "^7.0.3",
     "express": "^4.17.1",
     "moment": "^2.29.1",
     "mongodb": "^4.1.2",
