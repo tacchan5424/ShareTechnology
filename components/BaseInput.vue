@@ -1,17 +1,15 @@
 <template>
   <div :class="divClass">
-    <section v-if="isEdit">
+    <section>
       <b-input
         v-model="localValue"
         :type="type"
         :class="classes"
         :icon="icon"
         :placeholder="placeholder"
+        :readonly="!isEdit"
       ></b-input>
     </section>
-    <span v-if="!isEdit">
-      {{ localValue }}
-    </span>
   </div>
 </template>
 
