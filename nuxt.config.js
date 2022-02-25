@@ -1,6 +1,12 @@
 require("dotenv").config();
+console.log(process.env.NODE_ENV);
 
 module.exports = {
+  modules: [
+    // 省略
+    // NODE_ENVに応じた.envファイルを取得します。
+    ["@nuxtjs/dotenv"]
+  ],
   /*
    ** Headers of the page
    */
@@ -40,6 +46,5 @@ module.exports = {
     "~/plugins/axios.js",
     "~/plugins/axiosGoogle.js"
   ],
-  modules: ["@nuxtjs/dotenv"],
   telemetry: false
 };
