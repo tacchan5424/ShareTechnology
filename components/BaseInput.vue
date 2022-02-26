@@ -46,7 +46,11 @@ export default {
   padding-top: 10px;
 }
 
-.input {
+div >>> .input {
+  background-color: #fbf8f1;
+}
+
+div >>> .textarea {
   background-color: #fbf8f1;
 }
 </style>
