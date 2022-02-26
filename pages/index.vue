@@ -1,5 +1,5 @@
 <template>
-  <div class="has-background-white-ter">
+  <div class="totalPageBackground">
     <the-header
       :needSearch="true"
       @clickSearchButton="setTechnologyList"
@@ -95,4 +95,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.totalPageBackground {
+  background-color: #f7ecde;
+}
+</style>

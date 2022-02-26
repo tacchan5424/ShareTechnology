@@ -38,7 +38,15 @@ export default {
 </script>
 
 <style scoped>
+.headerBackground {
+  background-color: #54bab9;
+}
+
 .header {
   padding-top: 10px;
+}
+
+.input {
+  background-color: #fbf8f1;
 }
 </style>
