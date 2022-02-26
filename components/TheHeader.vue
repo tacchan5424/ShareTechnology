@@ -14,7 +14,7 @@
         classes="headerBackground"
       ></base-input>
     </div>
-    <div class="column is-1">
+    <div class="column is-2">
       <base-button
         divClass="header"
         :func="this.searchTechnology"
@@ -110,6 +110,10 @@ export default {
 
 <style scoped>
 .headerBackground {
+  background-color: #54bab9;
+}
+
+.headerBackground >>> .navbar-menu {
   background-color: #54bab9;
 }
 </style>
