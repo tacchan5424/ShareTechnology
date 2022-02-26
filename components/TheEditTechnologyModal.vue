@@ -1,11 +1,10 @@
 <template>
   <section>
     <div class="modal-card" style="width: auto">
-      <header class="modal-card-head">
+      <header class="modal-card-head headerBackground">
         <p class="modal-card-title">編集画面</p>
-        <button type="button" class="delete" @click="$emit('close')" />
       </header>
-      <section class="modal-card-body">
+      <section class="modal-card-body totalPageBackground">
         <b-field>
           <base-input
             v-model="technology.name"
@@ -38,25 +37,23 @@
           </b-field>
         </div>
         <base-button
-          classes="is-primary mb-3"
+          classes="buttonBackground mb-3"
           divClass="has-text-right"
           text="追加"
           :func="this.addLinkInfo"
         ></base-button>
-        <footer class="modal-card-foot">
-          <base-button
-            classes="is-primary"
-            text="編集"
-            :func="this.changeMode"
-            :isEdit="!isEdit"
-          ></base-button>
-          <base-button
-            classes="is-primary"
-            text="更新"
-            :func="this.updateTechnology"
-            :isEdit="isEdit"
-          ></base-button>
-        </footer>
+        <base-button
+          classes="buttonBackground"
+          text="編集"
+          :func="this.changeMode"
+          :isEdit="!isEdit"
+        ></base-button>
+        <base-button
+          classes="buttonBackground"
+          text="更新"
+          :func="this.updateTechnology"
+          :isEdit="isEdit"
+        ></base-button>
       </section>
       <b-loading v-model="isLoading"></b-loading>
     </div>
@@ -225,4 +222,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.totalPageBackground {
+  background-color: #f7ecde;
+}
+
+.headerBackground {
+  background-color: #54bab9;
+}
+</style>

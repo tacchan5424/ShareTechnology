@@ -24,4 +24,8 @@ export default {
 .header {
   padding-top: 10px;
 }
+
+.buttonBackground {
+  background-color: #fbf8f1;
+}
 </style>

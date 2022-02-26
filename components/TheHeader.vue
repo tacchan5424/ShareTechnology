@@ -1,5 +1,5 @@
 <template>
-  <div class="columns is-mobile has-background-primary">
+  <div class="columns is-mobile headerBackground">
     <div class="column is-3">
       <b-icon icon="home" size="is-large"></b-icon>
     </div>
@@ -11,6 +11,7 @@
         icon="magnify"
         divClass="header"
         v-if="needSearch"
+        classes="headerBackground"
       ></base-input>
     </div>
     <div class="column is-1">
@@ -19,29 +20,24 @@
         :func="this.searchTechnology"
         text="検索"
         v-if="needSearch"
+        classes="buttonBackground"
       ></base-button>
     </div>
     <div class="column">
-      <b-navbar class="has-background-primary">
+      <b-navbar class="headerBackground">
         <template #start>
           <b-navbar-item
-            class="column is-6 has-background-primary"
+            class="column is-6 headerBackground"
             @click="cardModal"
           >
             <b-icon icon="plus"></b-icon>
             新規作成
           </b-navbar-item>
-          <b-navbar-item
-            class="column is-5 has-background-primary"
-            href="contact"
-          >
+          <b-navbar-item class="column is-5 headerBackground" href="contact">
             <b-icon icon="email"></b-icon>
             お問い合わせ
           </b-navbar-item>
-          <b-navbar-item
-            class="column is-5 has-background-primary"
-            href="userPolicy"
-          >
+          <b-navbar-item class="column is-5 headerBackground" href="userPolicy">
             <b-icon icon="note"></b-icon>
             利用規約
           </b-navbar-item>
@@ -111,3 +107,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.headerBackground {
+  background-color: #54bab9;
+}
+</style>

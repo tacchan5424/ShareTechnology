@@ -1,12 +1,13 @@
 <template>
-  <div class="columns is-centered is-vcentered">
+  <div class="columns is-centered is-vcentered totalPageBackground">
     <base-button
       :text="String(content.usedCount + this.iterator)"
       icon="thumb-up-outline"
       :func="this.incrementUsedCount"
+      classes="buttonBackground"
     ></base-button>
     <div class="column is-mobile is-half">
-      <div class="box">
+      <div class="box boxBackground">
         <p class="title is-5" @click="cardModal">
           {{ this.content.name }}
         </p>
@@ -105,3 +106,13 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.totalPageBackground {
+  background-color: #f7ecde;
+}
+
+.boxBackground {
+  background-color: #fbf8f1;
+}
+</style>

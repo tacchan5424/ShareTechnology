@@ -1,8 +1,8 @@
 <template>
-  <div class="has-background-white-ter">
+  <div>
     <the-header :needSearch="false"></the-header>
-    <div class="columns is-centered is-vcentered">
-      <div class="box column is-mobile is-three-quarters">
+    <div class="columns is-centered is-vcentered totalPageBackground">
+      <div class="box column is-mobile is-three-quarters boxBackground">
         <div>
           <h1 class="title">利用規約</h1>
         </div>
@@ -77,3 +77,13 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.totalPageBackground {
+  background-color: #f7ecde;
+}
+
+.boxBackground {
+  background-color: #fbf8f1;
+}
+</style>
