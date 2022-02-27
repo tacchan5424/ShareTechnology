@@ -44,7 +44,7 @@
         ></base-button>
         <base-button
           classes="buttonBackground"
-          text="送信"
+          text="作成"
           :func="this.createTechnology"
         ></base-button>
       </section>

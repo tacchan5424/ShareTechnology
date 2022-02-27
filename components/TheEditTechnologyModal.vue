@@ -42,12 +42,20 @@
           text="追加"
           :func="this.addLinkInfo"
         ></base-button>
-        <base-button
-          classes="buttonBackground"
-          text="編集"
-          :func="this.changeMode"
-          :isEdit="!isEdit"
-        ></base-button>
+        <b-tooltip
+          label="編集する場合はここをクリック"
+          size="is-small"
+          position="is-right"
+          v-if="!isEdit"
+          always
+        >
+          <base-button
+            classes="buttonBackground"
+            text="編集"
+            :func="this.changeMode"
+            :isEdit="!isEdit"
+          ></base-button>
+        </b-tooltip>
         <base-button
           classes="buttonBackground"
           text="更新"
