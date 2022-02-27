@@ -1,7 +1,7 @@
 <template>
   <section>
     <b-field>
-      <b-select v-model="localValue" selected>
+      <b-select v-model="localValue">
         <option v-for="option in options" :value="option.id" :key="option.id">
           {{ option.label }}
         </option>
@@ -29,4 +29,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+div >>> select {
+  background-color: #fbf8f1;
+}
+</style>

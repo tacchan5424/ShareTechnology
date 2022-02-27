@@ -6,20 +6,15 @@
       :func="this.incrementUsedCount"
       classes="buttonBackground"
     ></base-button>
-    <div class="column is-mobile is-half">
+    <div class="column is-mobile">
       <div class="box boxBackground">
         <p class="title is-5" @click="cardModal">
           {{ this.content.name }}
         </p>
-        <div class="">
-          <span class="">初心者向け</span>
-          <a
-            v-for="(linkTitle, index) in content.linkTitles"
-            :key="index"
-            href="javascript:void(0)"
-            @click="redirect(content.links[index])"
-          >
-            {{ linkTitle }}
+        <div v-for="(linkTitle, index) in content.linkTitles" :key="index">
+          {{ linkTitle }} <br />
+          <a href="javascript:void(0)" @click="redirect(content.links[index])">
+            {{ content.links[index] }}
           </a>
         </div>
       </div>
