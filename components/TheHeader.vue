@@ -26,18 +26,15 @@
     <div class="column">
       <b-navbar class="headerBackground">
         <template #start>
-          <b-navbar-item
-            class="column is-6 headerBackground"
-            @click="cardModal"
-          >
+          <b-navbar-item class="headerBackground" @click="cardModal">
             <b-icon icon="plus"></b-icon>
             新規作成
           </b-navbar-item>
-          <b-navbar-item class="column is-5 headerBackground" href="contact">
+          <b-navbar-item class="headerBackground" href="contact">
             <b-icon icon="email"></b-icon>
             お問い合わせ
           </b-navbar-item>
-          <b-navbar-item class="column is-5 headerBackground" href="userPolicy">
+          <b-navbar-item class="headerBackground" href="userPolicy">
             <b-icon icon="note"></b-icon>
             利用規約
           </b-navbar-item>
