@@ -5,19 +5,7 @@
       @clickSearchButton="setTechnologyList"
     ></the-header>
     <div class="columns">
-      <div class="column is-one-quarter">
-        <div class="">
-          <div>
-            <p>{{ "検索方法" }}</p>
-          </div>
-          <div>
-            <span>{{ "更新日順" }}</span>
-          </div>
-          <div>
-            <span>{{ "いいね順" }}</span>
-          </div>
-        </div>
-      </div>
+      <div class="column is-one-quarter"></div>
       <div class="column is-half">
         <the-box
           v-for="technology in paginatedTechnologyList"

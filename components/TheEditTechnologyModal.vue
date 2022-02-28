@@ -41,6 +41,7 @@
           divClass="has-text-right"
           text="追加"
           :func="this.addLinkInfo"
+          :isEdit="isEdit"
         ></base-button>
         <b-tooltip
           label="編集する場合はここをクリック"

@@ -8,7 +8,7 @@
     ></base-button>
     <div class="column is-mobile">
       <div class="box boxBackground">
-        <p class="title is-5" @click="cardModal">
+        <p class="title is-5 dummyLink" @click="cardModal">
           {{ this.content.name }}
         </p>
         <div v-for="(linkTitle, index) in content.linkTitles" :key="index">
@@ -109,5 +109,9 @@ export default {
 
 .boxBackground {
   background-color: #fbf8f1;
+}
+
+.dummyLink {
+  cursor: pointer;
 }
 </style>
