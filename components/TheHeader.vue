@@ -24,7 +24,7 @@
       ></base-button>
     </div>
     <div class="column">
-      <b-navbar class="headerBackground">
+      <b-navbar class="headerBackground" transparent>
         <template #start>
           <b-navbar-item class="headerBackground" @click="cardModal">
             <b-icon icon="plus"></b-icon>
