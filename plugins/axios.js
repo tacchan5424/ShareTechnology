@@ -2,7 +2,10 @@ import axiosBase from "axios";
 
 export default ({}, inject) => {
   const axios = axiosBase.create({
-    baseURL: "http://localhost:3000", // バックエンドB のURL:port を指定する
+    baseURL:
+      process.env.NODE_ENV === "production"
+        ? "https://hogefuga.herokuapp.com/"
+        : "http://localhost:3000", // バックエンドB のURL:port を指定する
     headers: {
       "Content-Type": "application/json",
       "X-Requested-With": "XMLHttpRequest",
