@@ -5,7 +5,7 @@ module.exports = function(app) {
 
   app.route("/api/createContact").post(contactApi.create);
   app.route("/api/updateContact").put(contactApi.save);
-  app.route("/api/findAllContact").get(contactApi.findAll);
+  app.route("/api/findContactByNoReply").get(contactApi.findByNoReply);
 
   app.route("/api/createInformation").post(information.create);
   app.route("/api/updateInformation").put(information.save);
