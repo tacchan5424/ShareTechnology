@@ -61,7 +61,9 @@ exports.save = async function(req, res) {
 // 技術情報検索(全件検索)
 // 更新日の降順でソート
 exports.findAllOrderByUpdatedAtDesc = async function(req, res) {
+  console.log("APIコールされている");
   if (calledByService(req)) {
+    console.log("ヘッダ認証通っている");
     const db = await dbConnection.get();
 
     // 更新日の降順でソート
