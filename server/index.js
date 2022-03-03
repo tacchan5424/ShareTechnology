@@ -15,8 +15,6 @@ async function start() {
   if (config.dev) {
     const builder = new Builder(nuxt);
     await builder.build();
-  } else {
-    await nuxt.ready();
   }
 
   app.use(express.json());
