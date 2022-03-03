@@ -5,7 +5,7 @@
         <p class="title is-5 dummyLink" @click="cardModal">
           {{ this.content.name }}
         </p>
-        <div v-for="(linkTitle, index) in content.linkTitles" :key="index">
+        <div v-for="(linkTitle, index) in initialLinkTitles" :key="index">
           {{ linkTitle }} <br />
           <a href="javascript:void(0)" @click="redirect(content.links[index])">
             {{ content.links[index] }}
@@ -18,6 +18,28 @@
           classes="buttonBackground"
           v-if="false"
         ></base-button>
+        <b-collapse
+          :open="false"
+          position="is-bottom"
+          aria-id="contentIdForA11y1"
+          v-if="needCollapse()"
+        >
+          <template #trigger="props">
+            <a aria-controls="contentIdForA11y1">
+              <b-icon :icon="!props.open ? 'menu-down' : 'menu-up'"></b-icon>
+              {{ !props.open ? "もっと見る" : "閉じる" }}
+            </a>
+          </template>
+          <div v-for="(linkTitle, index) in collapseLinkTitles" :key="index">
+            {{ linkTitle }} <br />
+            <a
+              href="javascript:void(0)"
+              @click="redirect(content.links[index + visibleLinkNumber])"
+            >
+              {{ content.links[index + visibleLinkNumber] }}
+            </a>
+          </div>
+        </b-collapse>
       </div>
       <b-loading v-model="isLoading"></b-loading>
     </div>
@@ -35,11 +57,28 @@ export default {
   data() {
     return {
       iterator: 0,
-      isLoading: false
+      isLoading: false,
+      visibleLinkNumber: 2
     };
   },
   props: {
     content: Object
+  },
+  computed: {
+    // リンクは2つまで表示させる
+    initialLinkTitles() {
+      if (
+        this.content.linkTitles !== null &&
+        this.content.linkTitles.length > this.visibleLinkNumber - 1
+      ) {
+        return this.content.linkTitles.slice(0, this.visibleLinkNumber);
+      }
+      return this.content.linkTitles;
+    },
+    // 3つ目以降は別途表示させる
+    collapseLinkTitles() {
+      return this.content.linkTitles.slice(this.visibleLinkNumber);
+    }
   },
   methods: {
     incrementUsedCount() {
@@ -98,6 +137,12 @@ export default {
         trapFocus: true,
         props: { id: this.content._id }
       });
+    },
+    needCollapse() {
+      return (
+        this.content.linkTitles !== null &&
+        this.content.linkTitles.length > this.visibleLinkNumber
+      );
     }
   }
 };
