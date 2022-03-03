@@ -39,9 +39,18 @@ exports.save = async function(req, res) {
   );
 };
 
-// 問い合わせ情報検索(全件検索)
-exports.findAll = async function(req, res) {
-  const db = await dbConnection.get();
-  db.collection("contact").find({});
-  res.end("呼べたよ");
+// 問い合わせ情報検索(リプライ無し)
+exports.findByNoReply = async function(req, res) {
+  if (calledByService(req)) {
+    const db = await dbConnection.get();
+    const result = await db
+      .collection("contact")
+      .find({ reply: null })
+      .limit(50)
+      .toArray();
+    res.send(result);
+  } else {
+    res.status(404);
+    res.end();
+  }
 };
