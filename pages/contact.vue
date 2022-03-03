@@ -1,5 +1,5 @@
 <template>
-  <div class="has-background-white-ter">
+  <div class="totalPageBackground">
     <the-header :needSearch="false"></the-header>
     <div class="control columns">
       <div class="control column is-offset-2">
@@ -18,7 +18,7 @@
     <div class="control columns">
       <div class="control column is-offset-2">
         <base-button
-          classes="is-success"
+          classes="buttonBackground"
           :func="this.createContact"
           text="送信"
         ></base-button>
@@ -74,4 +74,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.totalPageBackground {
+  background-color: #f7ecde;
+}
+</style>

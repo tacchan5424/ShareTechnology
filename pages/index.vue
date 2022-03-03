@@ -1,14 +1,20 @@
 <template>
-  <div class="has-background-white-ter">
+  <div class="totalPageBackground">
     <the-header
       :needSearch="true"
       @clickSearchButton="setTechnologyList"
     ></the-header>
-    <the-box
-      v-for="technology in paginatedTechnologyList"
-      :key="technology._id"
-      :content="technology"
-    ></the-box>
+    <div class="columns">
+      <div class="column is-one-quarter"></div>
+      <div class="column is-half">
+        <the-box
+          v-for="technology in paginatedTechnologyList"
+          :key="technology._id"
+          :content="technology"
+        ></the-box>
+      </div>
+      <div class="column is-one-quarter"></div>
+    </div>
     <div class="columns is-centered">
       <b-pagination
         :total="total"
@@ -62,7 +68,7 @@ export default {
     // 技術情報取得
     // 画面更新時にコールされていない
     await app.$Axios
-      .get("api/findAllTechnology")
+      .get("api/findAllOrderByUpdatedAtDesc")
       .then(response => {
         response.data.forEach(element => {
           technologyList.push(element);
@@ -90,10 +96,17 @@ export default {
   methods: {
     setTechnologyList(res) {
       this.technologyList = res;
-      console.log(this.technologyList);
     }
   }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.totalPageBackground {
+  background-color: #f7ecde;
+}
+
+.boxBackground {
+  background-color: #fbf8f1;
+}
+</style>

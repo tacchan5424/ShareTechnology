@@ -1,11 +1,10 @@
 const dbConnection = require("../models/mongodb");
 const moment = require("moment");
-const customHeader = "ShareTechnology";
 
 // TODO:画面遷移でコールされた場合は404を返してエラーページを出力する
 function calledByService(req) {
   if (req.header("X-Custom-Auth"))
-    return req.header("X-Custom-Auth") === customHeader;
+    return req.header("X-Custom-Auth") === process.env.CUSTOM_HEADER;
 }
 
 // 問い合わせ情報作成

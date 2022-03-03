@@ -1,4 +1,12 @@
+require("dotenv").config();
+console.log(process.env.NODE_ENV);
+
 module.exports = {
+  modules: [
+    // 省略
+    // NODE_ENVに応じた.envファイルを取得します。
+    ["@nuxtjs/dotenv"]
+  ],
   /*
    ** Headers of the page
    */

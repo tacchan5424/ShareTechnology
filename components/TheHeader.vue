@@ -1,9 +1,10 @@
 <template>
-  <div class="columns is-mobile has-background-primary">
+  <div class="columns is-mobile headerBackground">
     <div class="column is-3">
       <b-navbar-item
-        class="column is-variable is-7-mobile is-2-tablet is-2-desktop is-2-widescreen is-2-fullhd has-background-primary"
+        class="column is-variable is-7-mobile is-2-tablet is-2-desktop is-2-widescreen is-2-fullhd"
         href="/"
+        transparent
       >
         <b-icon icon="home" size="is-large"></b-icon>
       </b-navbar-item>
@@ -16,35 +17,37 @@
         icon="magnify"
         divClass="header"
         v-if="needSearch"
+        classes="headerBackground"
       ></base-input>
     </div>
-    <div class="column is-1">
+    <div class="column is-2">
       <base-button
         divClass="header"
         :func="this.searchTechnology"
         text="検索"
         v-if="needSearch"
+        classes="buttonBackground"
       ></base-button>
     </div>
-    <div class="column ">
-      <b-navbar class="has-background-primary">
-        <template #start class="has-background-primary">
+    <div class="column">
+      <b-navbar class="headerBackground">
+        <template #start>
           <b-navbar-item
-            class="column is-variable is-12-mobile is-12-tablet is-4-desktop is-4-widescreen is-4-fullhd has-background-primary"
+            class="column is-variable is-12-mobile is-12-tablet is-4-desktop is-4-widescreen is-4-fullhd headerBackground"
             @click="cardModal"
           >
             <b-icon icon="plus"></b-icon>
             新規作成
           </b-navbar-item>
           <b-navbar-item
-            class="column is-variable is-12-mobile is-12-tablet is-5-desktop is-5-widescreen is-5-fullhd has-background-primary"
+            class="column is-variable is-12-mobile is-12-tablet is-5-desktop is-5-widescreen is-5-fullhd headerBackground"
             href="contact"
           >
             <b-icon icon="email"></b-icon>
             お問い合わせ
           </b-navbar-item>
           <b-navbar-item
-            class="column is-variable is-12-mobile is-12-tablet is-4-desktop is-4-widescreen is-4-fullhd has-background-primary"
+            class="column is-variable is-12-mobile is-12-tablet is-4-desktop is-4-widescreen is-4-fullhd headerBackground"
             href="userPolicy"
           >
             <b-icon icon="note"></b-icon>
@@ -84,7 +87,7 @@ export default {
         const queryList = this.query.replaceAll("　", " ").split(" ");
         // ひとまず1キーワードのみで検索する
         this.$Axios
-          .get("api/findLikeByNameTechnology", {
+          .get("api/findLikeByNameOrderByUsedCountDesc", {
             params: {
               query: this.query
             }
@@ -116,3 +119,13 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.headerBackground {
+  background-color: #54bab9;
+}
+
+.headerBackground >>> .navbar-menu {
+  background-color: #54bab9;
+}
+</style>

@@ -6,7 +6,7 @@ export default ({}, inject) => {
     headers: {
       "Content-Type": "application/json",
       "X-Requested-With": "XMLHttpRequest",
-      "X-Custom-Auth": "ShareTechnology"
+      "X-Custom-Auth": process.env.CUSTOM_HEADER
     },
     responseType: "json"
   });

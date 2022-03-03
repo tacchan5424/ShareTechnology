@@ -1,22 +1,20 @@
 <template>
   <section>
     <div class="modal-card" style="width: auto">
-      <header class="modal-card-head headerBackground">
-        <p class="modal-card-title">新規作成画面</p>
-      </header>
-      <section class="totalPageBackground modal-card-body">
+      <header class="modal-card-head headerBackground"></header>
+      <section class="modal-card-body totalPageBackground">
         <b-field>
           <base-input
             v-model="technology.name"
             placeholder="タイトル"
-            :isEdit="true"
+            :isEdit="isEdit"
             type="textbox"
           ></base-input>
         </b-field>
         <b-field label="説明">
           <base-input
             v-model="technology.detail"
-            :isEdit="true"
+            :isEdit="isEdit"
             type="textarea"
           ></base-input>
         </b-field>
@@ -24,14 +22,14 @@
           <b-field horizontal label="参考用のサイト名：">
             <base-input
               v-model="linkTitleList[index]"
-              :isEdit="true"
+              :isEdit="isEdit"
               type="textbox"
             ></base-input>
           </b-field>
           <b-field horizontal label="参考用URL名：">
             <base-input
               v-model="linkList[index]"
-              :isEdit="true"
+              :isEdit="isEdit"
               type="textbox"
             ></base-input>
           </b-field>
@@ -41,11 +39,27 @@
           divClass="has-text-right"
           text="追加"
           :func="this.addLinkInfo"
+          :isEdit="isEdit"
         ></base-button>
+        <b-tooltip
+          label="編集する場合はここをクリック"
+          size="is-small"
+          position="is-right"
+          v-if="!isEdit"
+          always
+        >
+          <base-button
+            classes="buttonBackground"
+            text="編集"
+            :func="this.changeMode"
+            :isEdit="!isEdit"
+          ></base-button>
+        </b-tooltip>
         <base-button
           classes="buttonBackground"
-          text="作成"
-          :func="this.createTechnology"
+          text="更新"
+          :func="this.updateTechnology"
+          :isEdit="isEdit"
         ></base-button>
       </section>
       <b-loading v-model="isLoading"></b-loading>
@@ -70,10 +84,36 @@ export default {
       linkTitleList: [""],
       hasNotNullLinkList: [],
       hasNotNullLinkTitleList: [],
-      isLoading: false
+      isLoading: false,
+      isEdit: false
     };
   },
+  props: {
+    id: String
+  },
+  async created() {
+    await this.$Axios
+      .get("api/findOne", {
+        params: {
+          id: this.id
+        }
+      })
+      .then(response => {
+        this.technology = response.data;
+        this.linkList = this.technology.links;
+        this.linkTitleList = this.technology.linkTitles;
+      })
+      .catch(() => {
+        this.$buefy.dialog.alert({
+          message: "エラーが発生しました。",
+          type: "is-danger"
+        });
+      });
+  },
   methods: {
+    changeMode() {
+      this.isEdit = !this.isEdit;
+    },
     addLinkInfo() {
       // リンク情報に空欄がない場合のみ追加できる
       if (
@@ -88,7 +128,7 @@ export default {
         this.$buefy.dialog.alert("リンク情報に空欄があります。");
       }
     },
-    async createTechnology() {
+    async updateTechnology() {
       if (this.canSave()) {
         this.isLoading = true;
 
@@ -110,12 +150,12 @@ export default {
           this.technology.linkTitles = this.hasNotNullLinkTitleList;
 
           await this.$Axios
-            .post("api/createTechnology", {
+            .put("api/updateTechnology", {
               technology: this.technology
             })
             .then(response => {
               this.isLoading = false;
-              this.$buefy.dialog.alert("登録されました。");
+              this.$buefy.dialog.alert("保存されました。");
               this.$emit("close");
             })
             .catch(() => {

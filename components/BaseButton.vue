@@ -1,5 +1,5 @@
 <template>
-  <div :class="divClass">
+  <div :class="divClass" v-if="isEdit">
     <b-button :type="type" :class="classes" :icon-left="icon" @click="func">{{
       text
     }}</b-button>
@@ -9,6 +9,7 @@
 <script>
 export default {
   props: {
+    isEdit: { type: Boolean, default: true },
     type: String,
     classes: String,
     text: String,
@@ -22,5 +23,9 @@ export default {
 <style scoped>
 .header {
   padding-top: 10px;
+}
+
+.buttonBackground {
+  background-color: #fbf8f1;
 }
 </style>

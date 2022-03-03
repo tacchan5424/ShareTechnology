@@ -4,7 +4,7 @@ module.exports = class Contact extends Base {
   constructor() {
     super();
     this.detail = null;
-    this.tag = null;
+    this.tag = 0;
     this.reply = null;
     this.fixed = null;
   }

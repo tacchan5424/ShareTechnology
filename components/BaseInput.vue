@@ -1,17 +1,15 @@
 <template>
   <div :class="divClass">
-    <section v-if="isEdit">
+    <section>
       <b-input
         v-model="localValue"
         :type="type"
         :class="classes"
         :icon="icon"
         :placeholder="placeholder"
+        :readonly="!isEdit"
       ></b-input>
     </section>
-    <span v-if="!isEdit">
-      {{ localValue }}
-    </span>
   </div>
 </template>
 
@@ -40,7 +38,19 @@ export default {
 </script>
 
 <style scoped>
+.headerBackground {
+  background-color: #54bab9;
+}
+
 .header {
   padding-top: 10px;
+}
+
+div >>> .input {
+  background-color: #fbf8f1;
+}
+
+div >>> .textarea {
+  background-color: #fbf8f1;
 }
 </style>

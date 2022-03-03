@@ -1,33 +1,32 @@
 <template>
-  <div class="columns is-centered is-vcentered">
-    <base-button
-      :text="String(content.usedCount + this.iterator)"
-      icon="thumb-up-outline"
-      :func="this.incrementUsedCount"
-    ></base-button>
-    <div class="column is-mobile is-half">
-      <div class="box">
-        <p class="title is-5">
+  <div class="columns is-centered is-vcentered totalPageBackground">
+    <div class="column is-mobile">
+      <div class="box boxBackground">
+        <p class="title is-5 dummyLink" @click="cardModal">
           {{ this.content.name }}
         </p>
-        <div class="">
-          <span class="">初心者向け</span>
-          <a
-            v-for="(linkTitle, index) in content.linkTitles"
-            :key="index"
-            :href="content.links[index]"
-            target="_blank"
-          >
-            {{ linkTitle }}
+        <div v-for="(linkTitle, index) in content.linkTitles" :key="index">
+          {{ linkTitle }} <br />
+          <a href="javascript:void(0)" @click="redirect(content.links[index])">
+            {{ content.links[index] }}
           </a>
         </div>
+        <base-button
+          :text="String(content.usedCount + this.iterator)"
+          icon="thumb-up-outline"
+          :func="this.incrementUsedCount"
+          classes="buttonBackground"
+          v-if="false"
+        ></base-button>
       </div>
+      <b-loading v-model="isLoading"></b-loading>
     </div>
   </div>
 </template>
 
 <script>
 import BaseButton from "~/components/BaseButton.vue";
+import TheEditTechnologyModal from "~/components/TheEditTechnologyModal.vue";
 
 export default {
   components: {
@@ -35,7 +34,8 @@ export default {
   },
   data() {
     return {
-      iterator: 0
+      iterator: 0,
+      isLoading: false
     };
   },
   props: {
@@ -43,6 +43,7 @@ export default {
   },
   methods: {
     incrementUsedCount() {
+      this.isLoading = true;
       this.$Axios
         .put("api/incrementUserCount", {
           technology: this.content
@@ -58,7 +59,60 @@ export default {
           });
           this.isLoading = false;
         });
+    },
+    async redirect(link) {
+      this.isLoading = true;
+      // 安全なリンクか否かチェック
+      await this.$AxiosGoogle
+        .get("", {
+          params: {
+            key: "AIzaSyB1LTt_fFnGBKUdBe2opafUGFg_afMNcSo",
+            uri: link,
+            threatTypes: "MALWARE",
+            threatTypes: "SOCIAL_ENGINEERING",
+            threatTypes: "UNWANTED_SOFTWARE"
+          }
+        })
+        .then(response => {
+          this.isLoading = false;
+          if (Object.keys(response.data).length) {
+            this.$buefy.dialog.alert({
+              message: "危険なリンクのため遷移できません。",
+              type: "is-danger"
+            });
+          } else {
+            window.open(link, "_blank");
+          }
+        })
+        .catch(error => {
+          this.isLoading = false;
+          console.log(error);
+        });
+    },
+    cardModal() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: TheEditTechnologyModal,
+        hasModalCard: false,
+        customClass: "custom-class custom-class-2",
+        trapFocus: true,
+        props: { id: this.content._id }
+      });
     }
   }
 };
 </script>
+
+<style scoped>
+.totalPageBackground {
+  background-color: #f7ecde;
+}
+
+.boxBackground {
+  background-color: #fbf8f1;
+}
+
+.dummyLink {
+  cursor: pointer;
+}
+</style>
