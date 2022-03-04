@@ -15,7 +15,7 @@
       </div>
       <div class="column is-one-quarter"></div>
     </div>
-    <div class="columns is-centered">
+    <div class="columns is-centered columns is-gapless">
       <b-pagination
         :total="total"
         v-model="current"
