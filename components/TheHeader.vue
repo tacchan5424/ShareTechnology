@@ -30,7 +30,7 @@
       ></base-button>
     </div>
     <div class="column">
-      <b-navbar class="headerBackground">
+      <b-navbar class="headerBackground" transparent>
         <template #start>
           <b-navbar-item
             class="column is-variable is-12-mobile is-12-tablet is-4-desktop is-4-widescreen is-4-fullhd headerBackground"
