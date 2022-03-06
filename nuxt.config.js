@@ -38,6 +38,10 @@ module.exports = {
         property: "og:description",
         content:
           "ほげふがは、初心者がIT系技術学習の際の導入に良いサイトをまとめています。登録なしに誰でも閲覧・更新ができます。"
+      },
+      {
+        name: "google-site-verification",
+        content: "GSinGdcgwZpERuFK9z7LjAxKKwhVrZV20daf7yjczb8"
       }
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
