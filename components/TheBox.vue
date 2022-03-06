@@ -1,11 +1,5 @@
 <template>
   <div class="columns is-centered is-vcentered totalPageBackground">
-    <base-button
-      :text="String(content.usedCount + this.iterator)"
-      icon="thumb-up-outline"
-      :func="this.incrementUsedCount"
-      classes="buttonBackground"
-    ></base-button>
     <div class="column is-mobile">
       <div class="box boxBackground">
         <p class="title is-5 dummyLink" @click="cardModal">
@@ -17,6 +11,13 @@
             {{ content.links[index] }}
           </a>
         </div>
+        <base-button
+          :text="String(content.usedCount + this.iterator)"
+          icon="thumb-up-outline"
+          :func="this.incrementUsedCount"
+          classes="buttonBackground"
+          v-if="false"
+        ></base-button>
         <b-collapse
           :open="false"
           position="is-bottom"
