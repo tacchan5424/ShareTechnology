@@ -1,13 +1,17 @@
 <template>
   <div class="columns is-mobile headerBackground">
     <div class="column is-3">
-      <b-navbar-item
-        class="column is-variable is-7-mobile is-2-tablet is-2-desktop is-2-widescreen is-2-fullhd"
-        href="/"
-        transparent
-      >
-        <b-icon icon="home" size="is-large"></b-icon>
-      </b-navbar-item>
+      <b-navbar class="headerBackground" :mobile-burger="false" transparent>
+        <template #brand>
+          <b-navbar-item
+            class="column is-variable is-7-mobile is-2-tablet is-2-desktop is-2-widescreen is-2-fullhd"
+            href="/"
+            transparent
+          >
+            <b-icon icon="home" size="is-medium"></b-icon>
+          </b-navbar-item>
+        </template>
+      </b-navbar>
     </div>
     <div class="column is-3">
       <base-input
