@@ -79,7 +79,11 @@ export default {
           })
           .then(response => {
             this.isLoading = false;
-            this.$emit("clickSearchButton", response.data);
+            if (response.data.length > 0) {
+              this.$emit("clickSearchButton", response.data);
+            } else {
+              this.$buefy.dialog.alert("登録済のデータはありませんでした。");
+            }
           })
           .catch(() => {
             this.$buefy.dialog.alert({

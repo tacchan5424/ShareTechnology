@@ -80,7 +80,6 @@ exports.findAllOrderByUpdatedAtDesc = async function(req, res) {
 };
 
 // nameに対してlike検索
-// good数の降順でソート
 exports.findLikeByNameOrderByUsedCountDesc = async function(req, res) {
   if (calledByService(req)) {
     const db = await dbConnection.get();
@@ -90,7 +89,6 @@ exports.findLikeByNameOrderByUsedCountDesc = async function(req, res) {
       .collection("technology")
       .find({ name: { $regex: req.query.query, $options: "i" } })
       .limit(50)
-      .sort({ usedCount: -1 })
       .toArray();
 
     res.send(result);
