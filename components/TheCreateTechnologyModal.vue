@@ -113,7 +113,7 @@ export default {
             .post("api/createTechnology", {
               technology: this.technology
             })
-            .then(response => {
+            .then(() => {
               this.isLoading = false;
               this.$buefy.dialog.alert("登録されました。");
               this.$emit("close");
