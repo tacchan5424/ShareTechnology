@@ -6,7 +6,7 @@
           {{ this.content.name }}
         </p>
         <div v-for="(linkTitle, index) in initialLinkTitles" :key="index">
-          {{ linkTitle }} <br />
+          <span class="wordBreak">{{ linkTitle }}</span> <br />
           <a href="javascript:void(0)" @click="redirect(content.links[index])">
             {{ content.links[index] }}
           </a>
@@ -31,7 +31,7 @@
             </a>
           </template>
           <div v-for="(linkTitle, index) in collapseLinkTitles" :key="index">
-            {{ linkTitle }} <br />
+            <span class="wordBreak">{{ linkTitle }}</span> <br />
             <a
               href="javascript:void(0)"
               @click="redirect(content.links[index + visibleLinkNumber])"
@@ -159,5 +159,10 @@ export default {
 
 .dummyLink {
   cursor: pointer;
+}
+
+a,
+.wordBreak {
+  word-break: break-all;
 }
 </style>
