@@ -53,22 +53,28 @@ export default {
 
   methods: {
     createContact() {
-      this.isLoading = true;
-      this.$Axios
-        .post("api/createContact", {
-          contact: this.contact
-        })
-        .then(response => {
-          this.isLoading = false;
-          this.$buefy.dialog.alert("ご報告ありがとうございます。");
-        })
-        .catch(() => {
-          this.$buefy.dialog.alert({
-            message: "エラーが発生しました。",
-            type: "is-danger"
+      if (this.contact.tag && this.contact.detail) {
+        this.isLoading = true;
+        this.$Axios
+          .post("api/createContact", {
+            contact: this.contact
+          })
+          .then(response => {
+            this.isLoading = false;
+            this.$buefy.dialog.alert("ご報告ありがとうございます。");
+          })
+          .catch(() => {
+            this.$buefy.dialog.alert({
+              message: "エラーが発生しました。",
+              type: "is-danger"
+            });
+            this.isLoading = false;
           });
-          this.isLoading = false;
-        });
+      } else {
+        this.$buefy.dialog.alert(
+          "問い合わせ区分あるいは内容が設定されていません。"
+        );
+      }
     }
   }
 };
