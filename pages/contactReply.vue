@@ -5,20 +5,30 @@
       class="box"
       v-for="hasNotReplyContact in hasNotReplyContactList"
       :key="hasNotReplyContact._id"
-    ></div>
+    >
+      {{ getContactTag(hasNotReplyContact.tag) }}
+      <base-input
+        v-model="hasNotReplyContact.detail"
+        :isEdit="false"
+        type="textarea"
+      ></base-input>
+    </div>
   </div>
 </template>
 
 <script>
 import TheHeader from "~/components/TheHeader.vue";
+import BaseInput from "~/components/BaseInput.vue";
 
 export default {
   components: {
-    TheHeader
+    TheHeader,
+    BaseInput
   },
   data() {
     return {
-      hasNotReplyContactList: []
+      hasNotReplyContactList: [],
+      contactTags: require("~/assets/contactTags.json")
     };
   },
   async created() {
@@ -32,9 +42,13 @@ export default {
         });
       })
       .catch(error => {});
-    return {
-      hasNotReplyContactList: hasNotReplyContactList
-    };
+    this.hasNotReplyContactList = hasNotReplyContactList;
+  },
+  methods: {
+    getContactTag(tag) {
+      // タグのIDは1始まりのため
+      return this.contactTags[tag - 1].label;
+    }
   }
 };
 </script>
