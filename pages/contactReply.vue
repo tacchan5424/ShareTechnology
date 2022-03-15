@@ -1,11 +1,14 @@
 <template>
   <div class="totalPageBackground">
     <the-header :needSearch="false"></the-header>
+    <base-input v-model="contactId" :isEdit="true"></base-input>
+    <base-button text="完了" :func="this.fixContact"></base-button>
     <div
       class="box"
       v-for="hasNotReplyContact in hasNotReplyContactList"
       :key="hasNotReplyContact._id"
     >
+      {{ hasNotReplyContact._id }}
       {{ getContactTag(hasNotReplyContact.tag) }}
       <base-input
         v-model="hasNotReplyContact.detail"
@@ -19,14 +22,17 @@
 <script>
 import TheHeader from "~/components/TheHeader.vue";
 import BaseInput from "~/components/BaseInput.vue";
+import BaseButton from "~/components/BaseButton.vue";
 
 export default {
   components: {
     TheHeader,
-    BaseInput
+    BaseInput,
+    BaseButton
   },
   data() {
     return {
+      contactId: null,
       hasNotReplyContactList: [],
       contactTags: require("~/assets/contactTags.json")
     };
@@ -35,7 +41,7 @@ export default {
     const hasNotReplyContactList = [];
 
     await this.$Axios
-      .get("api/findContactByNoReply")
+      .get("api/findContactByNotFixed")
       .then(response => {
         response.data.forEach(element => {
           hasNotReplyContactList.push(element);
@@ -48,6 +54,23 @@ export default {
     getContactTag(tag) {
       // タグのIDは1始まりのため
       return this.contactTags[tag - 1].label;
+    },
+    fixContact() {
+      this.$Axios
+        .put("api/fixContact", {
+          id: this.contactId
+        })
+        .then(response => {
+          this.$buefy.dialog.alert("完了しました。");
+          this.isLoading = false;
+        })
+        .catch(error => {
+          this.$buefy.dialog.alert({
+            message: "エラーが発生しました。",
+            type: "is-danger"
+          });
+          this.isLoading = false;
+        });
     }
   }
 };
