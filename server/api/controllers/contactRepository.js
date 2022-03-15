@@ -1,5 +1,6 @@
 const dbConnection = require("../models/mongodb");
 const moment = require("moment");
+const ObjectId = require("mongodb").ObjectID;
 
 // TODO:画面遷移でコールされた場合は404を返してエラーページを出力する
 function calledByService(req) {
@@ -40,15 +41,36 @@ exports.save = async function(req, res) {
 };
 
 // 問い合わせ情報検索(リプライ無し)
-exports.findByNoReply = async function(req, res) {
+exports.findByNotFixed = async function(req, res) {
   if (calledByService(req)) {
     const db = await dbConnection.get();
     const result = await db
       .collection("contact")
-      .find({ reply: null })
+      .find({ fixed: 0 })
       .limit(50)
       .toArray();
     res.send(result);
+  } else {
+    res.status(404);
+    res.end();
+  }
+};
+
+// 問い合わせfix
+exports.fixContact = async function(req, res) {
+  if (calledByService(req)) {
+    console.log(req.body.id);
+    const db = await dbConnection.get();
+    const contactId = req.body.id;
+    db.collection("contact").updateOne(
+      { _id: ObjectId(contactId) },
+      {
+        $set: {
+          fixed: 1
+        }
+      }
+    );
+    res.end();
   } else {
     res.status(404);
     res.end();
