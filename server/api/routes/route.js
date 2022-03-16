@@ -10,7 +10,7 @@ module.exports = function(app) {
 
   app.route("/api/createInformation").post(information.create);
   app.route("/api/updateInformation").put(information.save);
-  app.route("/api/findAllInformation").get(information.findAll);
+  app.route("/api/findInformation").get(information.findInformation);
 
   app.route("/api/createTechnology").post(technologyApi.create);
   app.route("/api/updateTechnology").put(technologyApi.save);

@@ -5,7 +5,11 @@
       @clickSearchButton="setTechnologyList"
     ></the-header>
     <div class="columns">
-      <div class="column is-one-quarter"></div>
+      <div class="column is-one-quarter">
+        <div class="column is-12">
+          <the-information :informationList="informationList"></the-information>
+        </div>
+      </div>
       <div class="column is-half">
         <the-box
           v-for="technology in paginatedTechnologyList"
@@ -41,15 +45,18 @@
 <script>
 import TheBox from "~/components/TheBox.vue";
 import TheHeader from "~/components/TheHeader.vue";
+import TheInformation from "~/components/TheInformation.vue";
 
 export default {
   components: {
     TheBox,
-    TheHeader
+    TheHeader,
+    TheInformation
   },
   data() {
     return {
       technologyList: [],
+      informationList: [],
       // total: 200,
       current: 1,
       perPage: 10,
@@ -64,9 +71,8 @@ export default {
     };
   },
   async asyncData(app) {
-    const technologyList = [];
     // 技術情報取得
-    // 画面更新時にコールされていない
+    const technologyList = [];
     await app.$Axios
       .get("api/findAllOrderByUpdatedAtDesc")
       .then(response => {
@@ -76,8 +82,20 @@ export default {
       })
       .catch(error => {});
 
+    // お知らせ情報取得
+    const informationList = [];
+    await app.$Axios
+      .get("api/findInformation")
+      .then(response => {
+        response.data.forEach(element => {
+          informationList.push(element);
+        });
+      })
+      .catch(error => {});
+
     return {
-      technologyList: technologyList
+      technologyList: technologyList,
+      informationList: informationList
     };
   },
   computed: {
