@@ -5,7 +5,7 @@
       <section class="modal-card-body totalPageBackground">
         <b-field>
           <base-input
-            :text="information.title"
+            v-model="localValue.title"
             placeholder="タイトル"
             :isEdit="isEdit"
             type="textbox"
@@ -13,7 +13,7 @@
         </b-field>
         <b-field>
           <base-input
-            :text="information.detail"
+            v-model="localValue.detail"
             :isEdit="isEdit"
             type="textarea"
           ></base-input>
@@ -37,6 +37,16 @@ export default {
   },
   props: {
     information: Object
+  },
+  computed: {
+    localValue: {
+      get() {
+        return this.information;
+      },
+      set(setValue) {
+        this.$emit("input", setValue);
+      }
+    }
   }
 };
 </script>
