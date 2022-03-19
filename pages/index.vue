@@ -5,11 +5,7 @@
       @clickSearchButton="setTechnologyList"
     ></the-header>
     <div class="columns">
-      <div class="column is-one-quarter">
-        <div class="column is-12">
-          <the-information :informationList="informationList"></the-information>
-        </div>
-      </div>
+      <div class="column is-one-quarter"></div>
       <div class="column is-half">
         <the-box
           v-for="technology in paginatedTechnologyList"
@@ -17,7 +13,11 @@
           :content="technology"
         ></the-box>
       </div>
-      <div class="column is-one-quarter"></div>
+      <div class="column is-one-quarter">
+        <div class="column is-12">
+          <the-information :informationList="informationList"></the-information>
+        </div>
+      </div>
     </div>
     <div class="columns is-centered columns is-gapless">
       <b-pagination
