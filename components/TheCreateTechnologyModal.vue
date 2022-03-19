@@ -164,16 +164,17 @@ export default {
     },
     async isSafeLink(link) {
       let isSafe = true;
+      // 同じキーのクエリを作るためappend
+      const params = new URLSearchParams();
+      params.append("threatTypes", "MALWARE");
+      params.append("threatTypes", "SOCIAL_ENGINEERING");
+      params.append("threatTypes", "UNWANTED_SOFTWARE");
+      params.append("key", "AIzaSyB1LTt_fFnGBKUdBe2opafUGFg_afMNcSo");
+      params.append("uri", link);
       // 安全なリンクか否かチェック
       await this.$AxiosGoogle
         .get("", {
-          params: {
-            key: "AIzaSyB1LTt_fFnGBKUdBe2opafUGFg_afMNcSo",
-            uri: link,
-            threatTypes: "MALWARE",
-            threatTypes: "SOCIAL_ENGINEERING",
-            threatTypes: "UNWANTED_SOFTWARE"
-          }
+          params: params
         })
         .then(response => {
           if (Object.keys(response.data).length) {
@@ -181,6 +182,7 @@ export default {
           }
         })
         .catch(error => {
+          isSafe = false;
           console.log(error);
         });
       return isSafe;
