@@ -101,7 +101,7 @@ export default {
     },
     async redirect(link) {
       this.isLoading = true;
-      // 同じキーのクエリを作るたappend
+      // 同じキーのクエリを作るためappend
       const params = new URLSearchParams();
       params.append("threatTypes", "MALWARE");
       params.append("threatTypes", "SOCIAL_ENGINEERING");

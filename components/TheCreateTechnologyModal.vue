@@ -164,7 +164,7 @@ export default {
     },
     async isSafeLink(link) {
       let isSafe = true;
-      // 同じキーのクエリを作るたappend
+      // 同じキーのクエリを作るためappend
       const params = new URLSearchParams();
       params.append("threatTypes", "MALWARE");
       params.append("threatTypes", "SOCIAL_ENGINEERING");
@@ -182,6 +182,7 @@ export default {
           }
         })
         .catch(error => {
+          isSafe = false;
           console.log(error);
         });
       return isSafe;
