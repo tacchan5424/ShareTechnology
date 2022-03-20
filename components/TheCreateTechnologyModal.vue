@@ -1,9 +1,7 @@
 <template>
   <section>
     <div class="modal-card" style="width: auto">
-      <header class="modal-card-head headerBackground">
-        <p class="modal-card-title">新規作成画面</p>
-      </header>
+      <header class="modal-card-head headerBackground"></header>
       <section class="totalPageBackground modal-card-body">
         <b-field>
           <base-input

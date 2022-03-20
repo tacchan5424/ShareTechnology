@@ -1,5 +1,5 @@
 <template>
-  <div class="totalPageBackground">
+  <div class="totalPageBackground top">
     <the-header
       :needSearch="true"
       @clickSearchButton="setTechnologyList"
@@ -120,6 +120,10 @@ export default {
 </script>
 
 <style scoped>
+.top {
+  overflow: hidden;
+}
+
 .totalPageBackground {
   background-color: #f7ecde;
 }
