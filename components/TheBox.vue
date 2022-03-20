@@ -1,7 +1,7 @@
 <template>
-  <div class="columns is-centered is-vcentered totalPageBackground">
-    <div class="column is-mobile">
-      <div class="box boxBackground">
+  <div class="totalPageBackground">
+    <div class="column">
+      <div class="box is-mobile boxBackground">
         <p class="title is-5 dummyLink" @click="cardModal">
           {{ this.content.name }}
         </p>

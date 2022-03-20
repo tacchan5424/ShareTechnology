@@ -12,32 +12,32 @@
           :key="technology._id"
           :content="technology"
         ></the-box>
+        <div class="columns is-centered columns is-gapless">
+          <b-pagination
+            :total="total"
+            v-model="current"
+            :range-before="rangeBefore"
+            :range-after="rangeAfter"
+            :order="order"
+            :size="size"
+            :simple="isSimple"
+            :rounded="isRounded"
+            :per-page="perPage"
+            :icon-prev="prevIcon"
+            :icon-next="nextIcon"
+            aria-next-label="Next page"
+            aria-previous-label="Previous page"
+            aria-page-label="Page"
+            aria-current-label="Current page"
+          >
+          </b-pagination>
+        </div>
       </div>
       <div class="column is-one-quarter">
         <div class="column is-12">
           <the-information :informationList="informationList"></the-information>
         </div>
       </div>
-    </div>
-    <div class="columns is-centered columns is-gapless">
-      <b-pagination
-        :total="total"
-        v-model="current"
-        :range-before="rangeBefore"
-        :range-after="rangeAfter"
-        :order="order"
-        :size="size"
-        :simple="isSimple"
-        :rounded="isRounded"
-        :per-page="perPage"
-        :icon-prev="prevIcon"
-        :icon-next="nextIcon"
-        aria-next-label="Next page"
-        aria-previous-label="Previous page"
-        aria-page-label="Page"
-        aria-current-label="Current page"
-      >
-      </b-pagination>
     </div>
   </div>
 </template>
