@@ -87,10 +87,8 @@ export default {
   },
   methods: {
     searchTechnology() {
-      if (this.query) {
+      if (this.notHasSpace()) {
         this.isLoading = true;
-        // 全角スペースを半角スペースに変換、半角スペースでキーワードを区切る
-        const queryList = this.query.replaceAll("　", " ").split(" ");
         // ひとまず1キーワードのみで検索する
         this.$Axios
           .get("api/findLikeByNameOrderByUsedCountDesc", {
@@ -114,8 +112,13 @@ export default {
             this.isLoading = false;
           });
       } else {
-        this.$buefy.dialog.alert("キーワードを設定してください。");
+        this.$buefy.dialog.alert(
+          "スペース無しのキーワードの入力してください。"
+        );
       }
+    },
+    notHasSpace() {
+      return this.query && !/\s/.test(this.query);
     },
     cardModal() {
       this.$buefy.modal.open({
