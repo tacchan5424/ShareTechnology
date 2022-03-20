@@ -1,5 +1,5 @@
 <template>
-  <div class="totalPageBackground">
+  <div class="totalPageBackground top">
     <the-header :needSearch="false"></the-header>
     <div class="control columns">
       <div class="control column is-offset-2">
@@ -81,6 +81,10 @@ export default {
 </script>
 
 <style scoped>
+.top {
+  overflow: hidden;
+}
+
 .totalPageBackground {
   background-color: #f7ecde;
 }
