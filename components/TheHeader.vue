@@ -91,7 +91,7 @@ export default {
         this.isLoading = true;
         // ひとまず1キーワードのみで検索する
         this.$Axios
-          .get("api/findLikeByNameOrderByUsedCountDesc", {
+          .get("api/findLikeByNameOrderByUpdatedAtDesc", {
             params: {
               query: this.query
             }
