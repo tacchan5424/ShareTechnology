@@ -4,7 +4,14 @@ module.exports = {
   modules: [
     // 省略
     // NODE_ENVに応じた.envファイルを取得します。
-    ["@nuxtjs/dotenv"]
+    ["@nuxtjs/dotenv"],
+    [
+      "@nuxtjs/google-gtag",
+      {
+        id: "G-HTGPFZN1NF",
+        debug: false
+      }
+    ]
   ],
   /*
    ** Headers of the page
