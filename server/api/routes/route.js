@@ -18,8 +18,8 @@ module.exports = function(app) {
     .route("/api/findAllOrderByUpdatedAtDesc")
     .get(technologyApi.findAllOrderByUpdatedAtDesc);
   app
-    .route("/api/findLikeByNameOrderByUsedCountDesc")
-    .get(technologyApi.findLikeByNameOrderByUsedCountDesc);
+    .route("/api/findLikeByNameOrderByUpdatedAtDesc")
+    .get(technologyApi.findLikeByNameOrderByUpdatedAtDesc);
   app.route("/api/incrementUserCount").put(technologyApi.increment);
   app.route("/api/findOne").get(technologyApi.findOne);
 };
