@@ -87,7 +87,7 @@ export default {
       }
     },
     async createTechnology() {
-      if (this.canSave()) {
+      if (await this.canSave()) {
         this.isLoading = true;
 
         // 事前チェックで片方のみnullのケースはエラーとしているので、両方nullのケースしか存在しない
@@ -132,12 +132,40 @@ export default {
         }
       }
     },
-    canSave() {
+    async canSave() {
       // タイトルが空の場合エラー
       if (!this.technology.name) {
         this.$buefy.dialog.alert("タイトルを入力してください。");
         return false;
       }
+
+      // タイトル名が一致しているものをDBから取得(大文字小文字は区別しない)
+      const _this = this;
+      const filteredItem = await this.$Axios
+        .get("api/findLikeByNameOrderByUpdatedAtDesc", {
+          params: {
+            query: this.technology.name
+          }
+        })
+        .then(response => {
+          return response.data.filter(technology => {
+            return _this.technology.name.length === technology.name.length;
+          });
+        })
+        .catch(() => {
+          this.$buefy.dialog.alert({
+            message: "エラーが発生しました。",
+            type: "is-danger"
+          });
+          return false;
+        });
+
+      // 重複しているタイトルがあった場合エラー
+      if (filteredItem.length > 0) {
+        this.$buefy.dialog.alert("登録済みのタイトルです。");
+        return false;
+      }
+
       // リンク関連が片方空になっているなどで対ではない場合エラー
       if (this.isEnptyLinkTitleOrLink()) {
         this.$buefy.dialog.alert(
