@@ -116,14 +116,6 @@ export default {
         .then(response => {
           this.isLoading = false;
           return Object.keys(response.data).length;
-          if (Object.keys(response.data).length) {
-            this.$buefy.dialog.alert({
-              message: "危険なリンクのため遷移できません。",
-              type: "is-danger"
-            });
-          } else {
-            window.open(link, "_blank");
-          }
         })
         .catch(error => {
           this.isLoading = false;
@@ -136,7 +128,12 @@ export default {
           type: "is-danger"
         });
       } else {
-        window.open(link, "_blank");
+        // iosのsafariの場合、非同期処理周りでwindow.openが使えないため分岐させる
+        if (!window.open(link, "_blank")) {
+          location.href = link;
+        } else {
+          window.open(link, "_blank");
+        }
       }
     },
     cardModal() {
