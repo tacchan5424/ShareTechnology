@@ -109,12 +109,13 @@ export default {
       params.append("key", "AIzaSyB1LTt_fFnGBKUdBe2opafUGFg_afMNcSo");
       params.append("uri", link);
       // 安全なリンクか否かチェック
-      await this.$AxiosGoogle
+      const isDangerLink = await this.$AxiosGoogle
         .get("", {
           params: params
         })
         .then(response => {
           this.isLoading = false;
+          return Object.keys(response.data).length;
           if (Object.keys(response.data).length) {
             this.$buefy.dialog.alert({
               message: "危険なリンクのため遷移できません。",
@@ -128,6 +129,15 @@ export default {
           this.isLoading = false;
           console.log(error);
         });
+
+      if (isDangerLink) {
+        this.$buefy.dialog.alert({
+          message: "危険なリンクのため遷移できません。",
+          type: "is-danger"
+        });
+      } else {
+        window.open(link, "_blank");
+      }
     },
     cardModal() {
       this.$buefy.modal.open({
