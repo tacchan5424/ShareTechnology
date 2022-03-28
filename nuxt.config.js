@@ -45,6 +45,7 @@ module.exports = {
         content:
           "ほげふがは、初心者がIT系技術学習の際の導入に良いサイトをまとめています。登録なしに誰でも閲覧・更新ができます。"
       },
+      { hid: "og:image", property: "og:image", content: "/favicon.ico" },
       {
         name: "google-site-verification",
         content: "GSinGdcgwZpERuFK9z7LjAxKKwhVrZV20daf7yjczb8"
